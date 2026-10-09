@@ -13,35 +13,35 @@
         <div class="landing-card">
             <div class="landing-header">
                 <div class="shield-logo">🍓🛡️</div>
-                <h1>Raspberry Pi Security Gateway</h1>
-                <p>Hardware-Assisted External Media Scanner & Threat Inspection Appliance</p>
+                <h1>Hardware Security Gateway</h1>
+                <p>Raspberry Pi Pre-Access Inspection Appliance for Untrusted Removable Media</p>
             </div>
 
             <!-- Interface Selection State -->
             <div id="interface-selection" class="selection-box">
-                <h2>Connect to Raspberry Pi Gateway</h2>
-                <p class="subtitle">Choose how your client device connects to the Raspberry Pi hardware gateway:</p>
+                <h2>Select Removable Media Type</h2>
+                <p class="subtitle">Select the untrusted storage attached to the Raspberry Pi gateway for pre-access inspection:</p>
 
                 <div class="interface-grid">
                     <button class="interface-card" data-type="usb">
                         <div class="icon">🔌</div>
-                        <h3>Raspberry Pi USB Port</h3>
-                        <p>Direct USB Cable / Mass Storage Port on Raspberry Pi</p>
-                        <span class="badge">Hardware Monitored</span>
+                        <h3>USB Flash Drive</h3>
+                        <p>Untrusted USB 3.0 / 2.0 Thumb Drives</p>
+                        <span class="badge">udev Monitored</span>
                     </button>
 
-                    <button class="interface-card" data-type="wifi">
-                        <div class="icon">📶</div>
-                        <h3>Raspberry Pi WiFi Hotspot</h3>
-                        <p>Connect via Pi AP / Local Network (192.168.4.1)</p>
-                        <span class="badge">WPA3 Encrypted</span>
+                    <button class="interface-card" data-type="sdcard">
+                        <div class="icon">💾</div>
+                        <h3>SD / MicroSD Card</h3>
+                        <p>Memory Cards via Pi Card Reader Slot</p>
+                        <span class="badge">Block Device</span>
                     </button>
 
-                    <button class="interface-card" data-type="bluetooth">
-                        <div class="icon">📡</div>
-                        <h3>Raspberry Pi Bluetooth</h3>
-                        <p>Pair with Raspberry Pi Gateway (OBEX Protocol)</p>
-                        <span class="badge">Paired Channel</span>
+                    <button class="interface-card" data-type="external_ssd">
+                        <div class="icon">💽</div>
+                        <h3>External SSD / HDD</h3>
+                        <p>High-Capacity Removable Storage Drives</p>
+                        <span class="badge">Read-Only Mount</span>
                     </button>
                 </div>
             </div>
@@ -49,29 +49,29 @@
             <!-- Detecting / Scanning Radar State (Hidden initially) -->
             <div id="detection-radar" class="radar-box hidden">
                 <div class="radar-spinner"></div>
-                <h3 id="radar-status-text">Establishing connection to Raspberry Pi Gateway...</h3>
-                <p class="radar-sub">Verifying hardware handshake & initializing inspection service (2-3s)</p>
+                <h3 id="radar-status-text">Detecting media insertion on Raspberry Pi udev bus...</h3>
+                <p class="radar-sub">Mounting source read-only & establishing OverlayFS RAM workspace (2-3s)</p>
 
                 <!-- Discovered Device Card (Appears after 2.5 seconds) -->
                 <div id="discovered-device" class="discovered-card hidden">
                     <div class="discovered-icon" id="device-icon">🍓</div>
                     <div class="discovered-info">
-                        <h4 id="device-name">Raspberry Pi 5 Gateway Appliance</h4>
-                        <p id="device-details">Host: 192.168.4.1 | OS: PiOS 64-bit | Status: Ready for Scanning</p>
+                        <h4 id="device-name">Kingston DataTraveler 3.0 (32GB)</h4>
+                        <p id="device-details">Mount: /mnt/source_ro | Mode: Read-Only | Workspace: tmpfs OverlayFS</p>
                     </div>
-                    <button id="btn-open-dashboard" class="btn-primary">Open Gateway Dashboard 🚀</button>
+                    <button id="btn-open-dashboard" class="btn-primary">Launch 9-Stage Inspection Dashboard 🚀</button>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Step 2: Main Dashboard View (Hidden initially until gateway is connected) -->
+    <!-- Step 2: Main Dashboard View (Hidden initially until media is detected) -->
     <div id="dashboard-app" class="app-container hidden">
         <!-- Sidebar Navigation -->
         <aside class="sidebar">
             <div class="brand">
                 <span class="shield-icon">🍓🛡️</span>
-                <h2>Raspberry Pi Gateway</h2>
+                <h2>RPi Security Gateway</h2>
             </div>
             <nav class="nav-menu">
                 <a href="#overview" class="nav-link active" data-tab="overview">📊 Overview</a>
@@ -83,7 +83,7 @@
             </nav>
             <div class="system-status">
                 <span class="status-indicator online"></span>
-                <span>RPi Gateway: <strong>ONLINE</strong></span>
+                <span>Gateway Status: <strong>ONLINE</strong></span>
             </div>
         </aside>
 
@@ -92,14 +92,14 @@
             <header class="top-bar">
                 <div>
                     <h1 id="page-title">Gateway Overview</h1>
-                    <p class="text-sub">Raspberry Pi Hardware-Assisted 9-Stage Malware Inspection Pipeline</p>
+                    <p class="text-sub">Standalone Raspberry Pi 5 Pre-Access Inspection Appliance</p>
                 </div>
                 <div class="top-bar-actions">
                     <div class="device-badge" id="device-badge">
-                        <span>🍓 Connected: <strong>Raspberry Pi Gateway</strong></span>
+                        <span>⚡ Connected: <strong>Kingston 32GB USB</strong></span>
                     </div>
-                    <button id="btn-switch-device" class="btn-secondary">🔌 Reconnect Gateway</button>
-                    <button id="btn-run-demo" class="btn-accent">▶️ Run Live Demo Scan</button>
+                    <button id="btn-switch-device" class="btn-secondary">🔌 Inspect New Media</button>
+                    <button id="btn-run-demo" class="btn-accent">▶️ Run 9-Stage Demo Scan</button>
                 </div>
             </header>
 
@@ -139,7 +139,7 @@
                     <div class="progress-bar-container">
                         <div class="progress-bar" id="scan-progress-bar" style="width: 0%;"></div>
                     </div>
-                    <p id="scan-status-text">Idle - Awaiting media insertion on Raspberry Pi</p>
+                    <p id="scan-status-text">Idle - Awaiting removable media insertion</p>
                 </div>
             </section>
 
@@ -155,12 +155,12 @@
                                 <th>SHA-256 Hash</th>
                                 <th>Verified Type</th>
                                 <th>Threat Score</th>
-                                <th>Action</th>
+                                <th>Policy Action</th>
                             </tr>
                         </thead>
                         <tbody id="results-table-body">
                             <tr>
-                                <td colspan="6" class="text-center">No scan results available yet. Insert media into Raspberry Pi or click "Run Live Demo Scan".</td>
+                                <td colspan="6" class="text-center">No scan results available yet. Select media or click "Run 9-Stage Demo Scan".</td>
                             </tr>
                         </tbody>
                     </table>
@@ -170,15 +170,15 @@
             <!-- Quarantine Section -->
             <section id="tab-quarantine" class="tab-content">
                 <div class="card full-width">
-                    <h2>☣️ Isolated Quarantine Vault</h2>
-                    <p class="text-sub">Files flagged with high threat scores are safely stored in `/mnt/quarantine` on the Raspberry Pi SSD.</p>
+                    <h2>☣️ Isolated Quarantine Storage</h2>
+                    <p class="text-sub">Files classified with high threat scores are safely isolated in `/mnt/quarantine` (Separate SSD storage).</p>
                     <table class="data-table">
                         <thead>
                             <tr>
                                 <th>File Name</th>
                                 <th>Detection Reason</th>
                                 <th>Threat Score</th>
-                                <th>Quarantine Path</th>
+                                <th>Isolated Path</th>
                             </tr>
                         </thead>
                         <tbody id="quarantine-table-body">
@@ -197,7 +197,7 @@
                     <div class="audit-list" id="audit-list">
                         <div class="audit-item">
                             <span class="badge info">INIT</span>
-                            <span>[RPi Gateway Startup] SQLite WAL Audit Log Initialized</span>
+                            <span>[Gateway Startup] SQLite WAL Audit Log Initialized</span>
                         </div>
                     </div>
                 </div>
@@ -206,31 +206,31 @@
             <!-- Settings Section -->
             <section id="tab-settings" class="tab-content">
                 <div class="card full-width">
-                    <h2>⚙️ Raspberry Pi Gateway Configuration</h2>
+                    <h2>⚙️ Raspberry Pi 5 Gateway System Specifications</h2>
                     <div class="settings-grid">
                         <div class="setting-item">
-                            <label>Hardware Host</label>
-                            <span class="status-active">Raspberry Pi 5 (8GB RAM)</span>
+                            <label>Hardware Compute Platform</label>
+                            <span class="status-active">Raspberry Pi 5 (Raspberry Pi OS 64-bit)</span>
                         </div>
                         <div class="setting-item">
-                            <label>ClamAV Antivirus Daemon</label>
-                            <span class="status-active">ENABLED</span>
+                            <label>Media Mount Protection</label>
+                            <span class="status-active">Read-Only (ro,noexec,nosuid,nodev)</span>
                         </div>
                         <div class="setting-item">
-                            <label>YARA Custom Engine</label>
-                            <span class="status-active">ACTIVE (default_rules.yar)</span>
+                            <label>Inspection Workspace</label>
+                            <span class="status-active">OverlayFS + RAM tmpfs (/mnt/overlay_tmp)</span>
                         </div>
                         <div class="setting-item">
-                            <label>OverlayFS RAM Workspace</label>
-                            <span class="status-active">tmpfs (/mnt/overlay_tmp)</span>
+                            <label>Hashing & Magic Inspection</label>
+                            <span class="status-active">Native Rust Core + SHA-256</span>
                         </div>
                         <div class="setting-item">
-                            <label>Threat Threshold (BLOCK)</label>
-                            <span>TTS >= 70</span>
+                            <label>Signature & Rule Engines</label>
+                            <span class="status-active">ClamAV Daemon + YARA Rules</span>
                         </div>
                         <div class="setting-item">
-                            <label>Threat Threshold (QUARANTINE)</label>
-                            <span>TTS >= 30</span>
+                            <label>Audit Database</label>
+                            <span class="status-active">SQLite (WAL Mode)</span>
                         </div>
                     </div>
                 </div>
