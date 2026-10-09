@@ -20,27 +20,27 @@ document.addEventListener("DOMContentLoaded", () => {
     const pageTitle = document.getElementById("page-title");
 
     let currentSelectedType = "usb";
-    let activeDeviceData = null;
+    let activeConnectionData = null;
 
-    // Preset Removable Media Types for Raspberry Pi Inspection
-    const mediaPresets = {
+    // The 3 Connection Methods to Access the Raspberry Pi Security Gateway GUI
+    const connectionPresets = {
         usb: {
             icon: "🔌",
-            name: "Kingston DataTraveler 3.0 (32GB USB Flash Drive)",
-            details: "Mount: /mnt/source_ro | File System: FAT32 | Protection: Read-Only (ro,noexec,nosuid)",
-            badge: "🔌 USB: Kingston 32GB (RO)"
+            name: "Wired USB (Type-A / Type-C Tethering)",
+            details: "Connection: USB Ethernet Gadget Mode | Speed: 10 Gbps High-Speed | Host: 192.168.7.2",
+            badge: "🔌 Connected via Wired USB-C"
         },
-        sdcard: {
-            icon: "💾",
-            name: "SanDisk Extreme 64GB MicroSD Card",
-            details: "Slot: Raspberry Pi Card Reader | File System: ext4 | Protection: Read-Only Isolated",
-            badge: "💾 SD Card: SanDisk 64GB (RO)"
+        wifi: {
+            icon: "📶",
+            name: "WiFi Network (Raspberry Pi AP / LAN)",
+            details: "Connection: Pi WiFi Hotspot | Host: 192.168.4.1 | Protocol: WPA3 Encrypted",
+            badge: "📶 Connected via WiFi (192.168.4.1)"
         },
-        external_ssd: {
-            icon: "💽",
-            name: "Samsung T7 Portable SSD (1TB Storage Drive)",
-            details: "Port: USB 3.0 High-Speed | File System: exFAT | Protection: Read-Only OverlayFS",
-            badge: "💽 External SSD: Samsung 1TB"
+        bluetooth: {
+            icon: "📡",
+            name: "Bluetooth Wireless Pairing",
+            details: "Connection: Raspberry Pi Bluetooth | Profile: BlueZ PAN/OBEX v5.3 | Mode: Paired",
+            badge: "📡 Connected via Bluetooth"
         }
     };
 
@@ -49,32 +49,32 @@ document.addEventListener("DOMContentLoaded", () => {
     interfaceCards.forEach(card => {
         card.addEventListener("click", () => {
             currentSelectedType = card.getAttribute("data-type");
-            startDeviceDetection(currentSelectedType);
+            startGatewayConnection(currentSelectedType);
         });
     });
 
-    function startDeviceDetection(type) {
+    function startGatewayConnection(type) {
         interfaceSelection.classList.add("hidden");
         detectionRadar.classList.remove("hidden");
         discoveredDevice.classList.add("hidden");
 
         const labels = {
-            usb: "Detecting USB flash drive insertion via pyudev hot-plug events...",
-            sdcard: "Scanning SD card slot interface on Raspberry Pi 5...",
-            external_ssd: "Detecting external high-capacity SSD drive connection..."
+            usb: "Connecting to Raspberry Pi Gateway via Wired USB Type-A / Type-C cable...",
+            wifi: "Connecting to Raspberry Pi Gateway via WiFi Access Point (192.168.4.1)...",
+            bluetooth: "Establishing Bluetooth pairing channel with Raspberry Pi Gateway..."
         };
 
-        radarStatusText.textContent = labels[type] || "Detecting media on Raspberry Pi udev bus...";
+        radarStatusText.textContent = labels[type] || "Connecting to Raspberry Pi Gateway...";
 
-        // Simulate 2.5 second hardware detection & read-only mounting
+        // Simulate 2.5 second connection setup delay
         setTimeout(() => {
-            const preset = mediaPresets[type];
-            activeDeviceData = preset;
+            const preset = connectionPresets[type];
+            activeConnectionData = preset;
             deviceIcon.textContent = preset.icon;
             deviceName.textContent = preset.name;
             deviceDetails.textContent = preset.details;
 
-            radarStatusText.textContent = "⚡ Removable Media Mounted Read-Only & OverlayFS Workspace Established!";
+            radarStatusText.textContent = "⚡ Successfully Connected to Raspberry Pi Security Gateway!";
             discoveredDevice.classList.remove("hidden");
         }, 2500);
     }
@@ -84,13 +84,13 @@ document.addEventListener("DOMContentLoaded", () => {
         landingPage.classList.add("hidden");
         dashboardApp.classList.remove("hidden");
 
-        if (activeDeviceData) {
-            deviceBadge.innerHTML = `<span>${activeDeviceData.badge}</span>`;
-            appendLog("success", `[MEDIA DETECTED] Mounted Read-Only: ${activeDeviceData.name}`);
+        if (activeConnectionData) {
+            deviceBadge.innerHTML = `<span>${activeConnectionData.badge}</span>`;
+            appendLog("success", `[GUI CONNECTED] Established session with Raspberry Pi Gateway via ${activeConnectionData.name}`);
         }
     });
 
-    // Switch / Reconnect Device Button
+    // Switch / Reconnect Connection Button
     btnSwitchDevice.addEventListener("click", () => {
         dashboardApp.classList.add("hidden");
         landingPage.classList.remove("hidden");
@@ -141,7 +141,7 @@ document.addEventListener("DOMContentLoaded", () => {
             { path: "/mnt/source_ro/firmware_update.exe", size: "4.2 MB", hash: "27c346894c0a525287b32524a87c1d7e2e850b6a95f5c9e1e2d3c4b5a6f7e8d", type: "application/x-dosexec", tts: 100, action: "BLOCK", reason: "ClamAV Signature Hit: Win32.Trojan.Agent-1049" }
         ];
 
-        appendLog("info", "[STAGE 1] Device Detection: pyudev registered block device insertion. Session #GW-9041 created.");
+        appendLog("info", "[STAGE 1] Device Detection: pyudev registered media insertion on Raspberry Pi. Session #GW-9041 created.");
         appendLog("info", "[STAGE 2] Read-Only Mount: Source mounted ro at /mnt/source_ro; OverlayFS RAM workspace linked.");
 
         let step = 0;

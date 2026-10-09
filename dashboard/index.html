@@ -8,40 +8,40 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <!-- Step 1: Raspberry Pi Gateway Connection Landing Page -->
+    <!-- Step 1: Raspberry Pi Gateway GUI Connection Landing Page -->
     <div id="landing-page" class="landing-container">
         <div class="landing-card">
             <div class="landing-header">
                 <div class="shield-logo">🍓🛡️</div>
                 <h1>Hardware Security Gateway</h1>
-                <p>Raspberry Pi Pre-Access Inspection Appliance for Untrusted Removable Media</p>
+                <p>Connect to the Raspberry Pi Security Gateway Device to Access the GUI Dashboard</p>
             </div>
 
             <!-- Interface Selection State -->
             <div id="interface-selection" class="selection-box">
-                <h2>Select Removable Media Type</h2>
-                <p class="subtitle">Select the untrusted storage attached to the Raspberry Pi gateway for pre-access inspection:</p>
+                <h2>Select Connection Method to Gateway</h2>
+                <p class="subtitle">Choose how your computer or mobile device connects to the Raspberry Pi hardware:</p>
 
                 <div class="interface-grid">
                     <button class="interface-card" data-type="usb">
                         <div class="icon">🔌</div>
-                        <h3>USB Flash Drive</h3>
-                        <p>Untrusted USB 3.0 / 2.0 Thumb Drives</p>
-                        <span class="badge">udev Monitored</span>
+                        <h3>Wired USB (Type-A / Type-C)</h3>
+                        <p>Direct USB Cable Tethering & Gadget Interface</p>
+                        <span class="badge">Wired Cable</span>
                     </button>
 
-                    <button class="interface-card" data-type="sdcard">
-                        <div class="icon">💾</div>
-                        <h3>SD / MicroSD Card</h3>
-                        <p>Memory Cards via Pi Card Reader Slot</p>
-                        <span class="badge">Block Device</span>
+                    <button class="interface-card" data-type="wifi">
+                        <div class="icon">📶</div>
+                        <h3>WiFi Network</h3>
+                        <p>Connect via Pi Hotspot or LAN (192.168.4.1)</p>
+                        <span class="badge">Wireless Network</span>
                     </button>
 
-                    <button class="interface-card" data-type="external_ssd">
-                        <div class="icon">💽</div>
-                        <h3>External SSD / HDD</h3>
-                        <p>High-Capacity Removable Storage Drives</p>
-                        <span class="badge">Read-Only Mount</span>
+                    <button class="interface-card" data-type="bluetooth">
+                        <div class="icon">📡</div>
+                        <h3>Bluetooth</h3>
+                        <p>Pair with Raspberry Pi Bluetooth Interface</p>
+                        <span class="badge">Bluetooth Paired</span>
                     </button>
                 </div>
             </div>
@@ -49,23 +49,23 @@
             <!-- Detecting / Scanning Radar State (Hidden initially) -->
             <div id="detection-radar" class="radar-box hidden">
                 <div class="radar-spinner"></div>
-                <h3 id="radar-status-text">Detecting media insertion on Raspberry Pi udev bus...</h3>
-                <p class="radar-sub">Mounting source read-only & establishing OverlayFS RAM workspace (2-3s)</p>
+                <h3 id="radar-status-text">Connecting to Raspberry Pi Security Gateway...</h3>
+                <p class="radar-sub">Establishing connection and initializing GUI dashboard session (2-3s)</p>
 
                 <!-- Discovered Device Card (Appears after 2.5 seconds) -->
                 <div id="discovered-device" class="discovered-card hidden">
                     <div class="discovered-icon" id="device-icon">🍓</div>
                     <div class="discovered-info">
-                        <h4 id="device-name">Kingston DataTraveler 3.0 (32GB)</h4>
-                        <p id="device-details">Mount: /mnt/source_ro | Mode: Read-Only | Workspace: tmpfs OverlayFS</p>
+                        <h4 id="device-name">Raspberry Pi Security Gateway Device</h4>
+                        <p id="device-details">Connection: Wired USB-C | Host: 192.168.4.1 | Status: Connected & Online</p>
                     </div>
-                    <button id="btn-open-dashboard" class="btn-primary">Launch 9-Stage Inspection Dashboard 🚀</button>
+                    <button id="btn-open-dashboard" class="btn-primary">Access Gateway GUI Dashboard 🚀</button>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Step 2: Main Dashboard View (Hidden initially until media is detected) -->
+    <!-- Step 2: Main Dashboard View (Hidden initially until gateway is connected) -->
     <div id="dashboard-app" class="app-container hidden">
         <!-- Sidebar Navigation -->
         <aside class="sidebar">
@@ -83,7 +83,7 @@
             </nav>
             <div class="system-status">
                 <span class="status-indicator online"></span>
-                <span>Gateway Status: <strong>ONLINE</strong></span>
+                <span>Gateway Device: <strong>ONLINE</strong></span>
             </div>
         </aside>
 
@@ -92,13 +92,13 @@
             <header class="top-bar">
                 <div>
                     <h1 id="page-title">Gateway Overview</h1>
-                    <p class="text-sub">Standalone Raspberry Pi 5 Pre-Access Inspection Appliance</p>
+                    <p class="text-sub">Raspberry Pi Hardware-Assisted 9-Stage Malware Inspection Pipeline</p>
                 </div>
                 <div class="top-bar-actions">
                     <div class="device-badge" id="device-badge">
-                        <span>⚡ Connected: <strong>Kingston 32GB USB</strong></span>
+                        <span>⚡ Connected: <strong>Wired USB-C Gateway</strong></span>
                     </div>
-                    <button id="btn-switch-device" class="btn-secondary">🔌 Inspect New Media</button>
+                    <button id="btn-switch-device" class="btn-secondary">🔌 Switch Connection</button>
                     <button id="btn-run-demo" class="btn-accent">▶️ Run 9-Stage Demo Scan</button>
                 </div>
             </header>
@@ -139,7 +139,7 @@
                     <div class="progress-bar-container">
                         <div class="progress-bar" id="scan-progress-bar" style="width: 0%;"></div>
                     </div>
-                    <p id="scan-status-text">Idle - Awaiting removable media insertion</p>
+                    <p id="scan-status-text">Idle - Awaiting media insertion on Raspberry Pi</p>
                 </div>
             </section>
 
@@ -160,7 +160,7 @@
                         </thead>
                         <tbody id="results-table-body">
                             <tr>
-                                <td colspan="6" class="text-center">No scan results available yet. Select media or click "Run 9-Stage Demo Scan".</td>
+                                <td colspan="6" class="text-center">No scan results available yet. Insert media into Raspberry Pi or click "Run 9-Stage Demo Scan".</td>
                             </tr>
                         </tbody>
                     </table>
