@@ -3,45 +3,45 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hardware Security Gateway - Device Selection & Dashboard</title>
+    <title>Raspberry Pi Hardware Security Gateway</title>
     <link rel="stylesheet" href="css/styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <!-- Step 1: Device Connection Landing Page -->
+    <!-- Step 1: Raspberry Pi Gateway Connection Landing Page -->
     <div id="landing-page" class="landing-container">
         <div class="landing-card">
             <div class="landing-header">
-                <div class="shield-logo">🛡️</div>
-                <h1>Hardware Security Gateway</h1>
-                <p>Isolated Hardware Media Scanner & Threat Inspection Appliance</p>
+                <div class="shield-logo">🍓🛡️</div>
+                <h1>Raspberry Pi Security Gateway</h1>
+                <p>Hardware-Assisted External Media Scanner & Threat Inspection Appliance</p>
             </div>
 
             <!-- Interface Selection State -->
             <div id="interface-selection" class="selection-box">
-                <h2>Select Connection Interface</h2>
-                <p class="subtitle">Choose how your external media or device is connected to the gateway:</p>
+                <h2>Connect to Raspberry Pi Gateway</h2>
+                <p class="subtitle">Choose how your client device connects to the Raspberry Pi hardware gateway:</p>
 
                 <div class="interface-grid">
                     <button class="interface-card" data-type="usb">
                         <div class="icon">🔌</div>
-                        <h3>Wired USB</h3>
-                        <p>Flash Drives, External SSDs, Hard Disks</p>
-                        <span class="badge">Bus Monitored</span>
+                        <h3>Raspberry Pi USB Port</h3>
+                        <p>Direct USB Cable / Mass Storage Port on Raspberry Pi</p>
+                        <span class="badge">Hardware Monitored</span>
                     </button>
 
                     <button class="interface-card" data-type="wifi">
                         <div class="icon">📶</div>
-                        <h3>WiFi / Network</h3>
-                        <p>Wireless NAS, SMB Shares, Network Drives</p>
-                        <span class="badge">Encrypted</span>
+                        <h3>Raspberry Pi WiFi Hotspot</h3>
+                        <p>Connect via Pi AP / Local Network (192.168.4.1)</p>
+                        <span class="badge">WPA3 Encrypted</span>
                     </button>
 
                     <button class="interface-card" data-type="bluetooth">
                         <div class="icon">📡</div>
-                        <h3>Bluetooth</h3>
-                        <p>Mobile Phones, OBEX File Transfers</p>
-                        <span class="badge">Wireless</span>
+                        <h3>Raspberry Pi Bluetooth</h3>
+                        <p>Pair with Raspberry Pi Gateway (OBEX Protocol)</p>
+                        <span class="badge">Paired Channel</span>
                     </button>
                 </div>
             </div>
@@ -49,29 +49,29 @@
             <!-- Detecting / Scanning Radar State (Hidden initially) -->
             <div id="detection-radar" class="radar-box hidden">
                 <div class="radar-spinner"></div>
-                <h3 id="radar-status-text">Scanning for connected USB devices...</h3>
-                <p class="radar-sub">Inspecting interface hardware & mounting parameters (2-3s)</p>
+                <h3 id="radar-status-text">Establishing connection to Raspberry Pi Gateway...</h3>
+                <p class="radar-sub">Verifying hardware handshake & initializing inspection service (2-3s)</p>
 
                 <!-- Discovered Device Card (Appears after 2.5 seconds) -->
                 <div id="discovered-device" class="discovered-card hidden">
-                    <div class="discovered-icon" id="device-icon">⚡</div>
+                    <div class="discovered-icon" id="device-icon">🍓</div>
                     <div class="discovered-info">
-                        <h4 id="device-name">Kingston DataTraveler 3.0 (32GB)</h4>
-                        <p id="device-details">Mount: /dev/sdb1 | File System: FAT32 | State: Read-Only</p>
+                        <h4 id="device-name">Raspberry Pi 5 Gateway Appliance</h4>
+                        <p id="device-details">Host: 192.168.4.1 | OS: PiOS 64-bit | Status: Ready for Scanning</p>
                     </div>
-                    <button id="btn-open-dashboard" class="btn-primary">Launch Dashboard & Scan 🚀</button>
+                    <button id="btn-open-dashboard" class="btn-primary">Open Gateway Dashboard 🚀</button>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Step 2: Main Dashboard View (Hidden initially until device is connected) -->
+    <!-- Step 2: Main Dashboard View (Hidden initially until gateway is connected) -->
     <div id="dashboard-app" class="app-container hidden">
         <!-- Sidebar Navigation -->
         <aside class="sidebar">
             <div class="brand">
-                <span class="shield-icon">🛡️</span>
-                <h2>Gateway Dashboard</h2>
+                <span class="shield-icon">🍓🛡️</span>
+                <h2>Raspberry Pi Gateway</h2>
             </div>
             <nav class="nav-menu">
                 <a href="#overview" class="nav-link active" data-tab="overview">📊 Overview</a>
@@ -83,7 +83,7 @@
             </nav>
             <div class="system-status">
                 <span class="status-indicator online"></span>
-                <span>System Status: <strong>ONLINE</strong></span>
+                <span>RPi Gateway: <strong>ONLINE</strong></span>
             </div>
         </aside>
 
@@ -92,13 +92,13 @@
             <header class="top-bar">
                 <div>
                     <h1 id="page-title">Gateway Overview</h1>
-                    <p class="text-sub">Hardware-Assisted 9-Stage Malware Inspection Pipeline</p>
+                    <p class="text-sub">Raspberry Pi Hardware-Assisted 9-Stage Malware Inspection Pipeline</p>
                 </div>
                 <div class="top-bar-actions">
                     <div class="device-badge" id="device-badge">
-                        <span>⚡ Connected: <strong>No Device</strong></span>
+                        <span>🍓 Connected: <strong>Raspberry Pi Gateway</strong></span>
                     </div>
-                    <button id="btn-switch-device" class="btn-secondary">🔌 Switch Device</button>
+                    <button id="btn-switch-device" class="btn-secondary">🔌 Reconnect Gateway</button>
                     <button id="btn-run-demo" class="btn-accent">▶️ Run Live Demo Scan</button>
                 </div>
             </header>
@@ -127,7 +127,7 @@
                 <div class="card full-width">
                     <h2>Live Activity Stream</h2>
                     <div class="event-log" id="event-log">
-                        <div class="log-entry info">[SYSTEM] Hardware Gateway initialized and ready for review inspection...</div>
+                        <div class="log-entry info">[SYSTEM] Raspberry Pi Gateway initialized and monitoring udev hot-plug events...</div>
                     </div>
                 </div>
             </section>
@@ -139,7 +139,7 @@
                     <div class="progress-bar-container">
                         <div class="progress-bar" id="scan-progress-bar" style="width: 0%;"></div>
                     </div>
-                    <p id="scan-status-text">Idle - Awaiting media insertion</p>
+                    <p id="scan-status-text">Idle - Awaiting media insertion on Raspberry Pi</p>
                 </div>
             </section>
 
@@ -160,7 +160,7 @@
                         </thead>
                         <tbody id="results-table-body">
                             <tr>
-                                <td colspan="6" class="text-center">No scan results available yet. Connect a device or click "Run Live Demo Scan".</td>
+                                <td colspan="6" class="text-center">No scan results available yet. Insert media into Raspberry Pi or click "Run Live Demo Scan".</td>
                             </tr>
                         </tbody>
                     </table>
@@ -171,7 +171,7 @@
             <section id="tab-quarantine" class="tab-content">
                 <div class="card full-width">
                     <h2>☣️ Isolated Quarantine Vault</h2>
-                    <p class="text-sub">Files flagged with high threat scores are safely stored in `/mnt/quarantine` (Read-only isolated drive).</p>
+                    <p class="text-sub">Files flagged with high threat scores are safely stored in `/mnt/quarantine` on the Raspberry Pi SSD.</p>
                     <table class="data-table">
                         <thead>
                             <tr>
@@ -197,7 +197,7 @@
                     <div class="audit-list" id="audit-list">
                         <div class="audit-item">
                             <span class="badge info">INIT</span>
-                            <span>[Gateway Startup] SQLite WAL Audit Log Initialized</span>
+                            <span>[RPi Gateway Startup] SQLite WAL Audit Log Initialized</span>
                         </div>
                     </div>
                 </div>
@@ -206,8 +206,12 @@
             <!-- Settings Section -->
             <section id="tab-settings" class="tab-content">
                 <div class="card full-width">
-                    <h2>⚙️ Gateway Configuration</h2>
+                    <h2>⚙️ Raspberry Pi Gateway Configuration</h2>
                     <div class="settings-grid">
+                        <div class="setting-item">
+                            <label>Hardware Host</label>
+                            <span class="status-active">Raspberry Pi 5 (8GB RAM)</span>
+                        </div>
                         <div class="setting-item">
                             <label>ClamAV Antivirus Daemon</label>
                             <span class="status-active">ENABLED</span>

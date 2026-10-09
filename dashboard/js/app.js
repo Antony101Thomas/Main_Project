@@ -22,25 +22,25 @@ document.addEventListener("DOMContentLoaded", () => {
     let currentSelectedType = "usb";
     let activeDeviceData = null;
 
-    // Simulated Preset Devices
-    const devicePresets = {
+    // Preset Raspberry Pi Gateway Connections
+    const gatewayPresets = {
         usb: {
             icon: "🔌",
-            name: "Kingston DataTraveler 3.0 (32GB)",
-            details: "Mount: /dev/sdb1 | File System: FAT32 | State: Read-Only Isolated",
-            badge: "🔌 USB 3.0: Kingston 32GB"
+            name: "Raspberry Pi 5 Gateway (USB Port Connection)",
+            details: "Hardware: Raspberry Pi 5 | Bus: udev Monitored | Mode: Read-Only OverlayFS",
+            badge: "🍓 RPi USB Gateway (Online)"
         },
         wifi: {
             icon: "📶",
-            name: "Office_Secure_NAS_Volume (192.168.1.105)",
-            details: "Protocol: SMB3 Encrypted | Capacity: 2.5 TB | Auth: Kerberos",
-            badge: "📶 WiFi NAS: 192.168.1.105"
+            name: "Raspberry Pi 5 Gateway (WiFi AP: 192.168.4.1)",
+            details: "Host IP: 192.168.4.1 | Channel: 5GHz WPA3 | Mode: Encrypted Network Stream",
+            badge: "🍓 RPi WiFi AP: 192.168.4.1"
         },
         bluetooth: {
             icon: "📡",
-            name: "Galaxy_S24_Ultra_OBEX",
-            details: "Protocol: Bluetooth OBEX v5.3 | Transit Channel: Secure Sandbox",
-            badge: "📡 Bluetooth: Galaxy S24"
+            name: "Raspberry Pi 5 Gateway (Bluetooth OBEX Channel)",
+            details: "Device: RPi5_Security_Gateway | Protocol: BlueZ OBEX v5.3 | Mode: Paired",
+            badge: "🍓 RPi Bluetooth Paired"
         }
     };
 
@@ -59,22 +59,22 @@ document.addEventListener("DOMContentLoaded", () => {
         discoveredDevice.classList.add("hidden");
 
         const labels = {
-            usb: "Scanning USB 3.0/2.0 hardware bus for attached block devices...",
-            wifi: "Searching local wireless network for active SMB/NFS storage shares...",
-            bluetooth: "Polling Bluetooth OBEX channels for incoming device transfer requests..."
+            usb: "Establishing direct hardware handshake with Raspberry Pi USB gateway interface...",
+            wifi: "Connecting to Raspberry Pi Gateway WiFi Access Point (192.168.4.1)...",
+            bluetooth: "Initiating Bluetooth pairing protocol with Raspberry Pi Gateway (BlueZ OBEX)..."
         };
 
-        radarStatusText.textContent = labels[type] || "Scanning interface bus...";
+        radarStatusText.textContent = labels[type] || "Connecting to Raspberry Pi Gateway...";
 
-        // Simulate 2.5 second hardware detection delay
+        // Simulate 2.5 second hardware connection delay
         setTimeout(() => {
-            const preset = devicePresets[type];
+            const preset = gatewayPresets[type];
             activeDeviceData = preset;
             deviceIcon.textContent = preset.icon;
             deviceName.textContent = preset.name;
             deviceDetails.textContent = preset.details;
 
-            radarStatusText.textContent = "⚡ Device Interface Successfully Detected!";
+            radarStatusText.textContent = "⚡ Successfully Connected to Raspberry Pi Security Gateway!";
             discoveredDevice.classList.remove("hidden");
         }, 2500);
     }
@@ -86,11 +86,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
         if (activeDeviceData) {
             deviceBadge.innerHTML = `<span>${activeDeviceData.badge}</span>`;
-            appendLog("success", `[DEVICE CONNECTED] Interface: ${activeDeviceData.name}`);
+            appendLog("success", `[GATEWAY CONNECTED] Host: ${activeDeviceData.name}`);
         }
     });
 
-    // Switch Device Button
+    // Switch / Reconnect Device Button
     btnSwitchDevice.addEventListener("click", () => {
         dashboardApp.classList.add("hidden");
         landingPage.classList.remove("hidden");
@@ -123,7 +123,7 @@ document.addEventListener("DOMContentLoaded", () => {
     function runFullDemoScan() {
         isDemoRunning = true;
         btnRunDemo.disabled = true;
-        btnRunDemo.textContent = "⏳ Scanning in Progress...";
+        btnRunDemo.textContent = "⏳ Scanning Media on RPi...";
 
         const progressBar = document.getElementById("scan-progress-bar");
         const statusText = document.getElementById("scan-status-text");
@@ -135,14 +135,14 @@ document.addEventListener("DOMContentLoaded", () => {
         quarantineTable.innerHTML = "";
 
         const mockFiles = [
-            { path: "/media/docs/annual_financial_report_2026.pdf", size: "1.4 MB", hash: "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855", type: "application/pdf", tts: 0, action: "ALLOW" },
-            { path: "/media/images/gateway_architecture_diagram.png", size: "2.8 MB", hash: "8f4e3c2b1a0d9e8f7a6b5c4d3e2f1a0b9c8d7e6f5a4b3c2d1e0f9a8b7c6d5e4", type: "image/png", tts: 5, action: "ALLOW" },
-            { path: "/media/archives/confidential_backup_pass.zip", size: "18.5 MB", hash: "7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2b3c4d5e6f7a8", type: "application/zip", tts: 45, action: "QUARANTINE", reason: "Encrypted header / Suspect archive depth" },
-            { path: "/media/binaries/system_driver_update.exe", size: "4.2 MB", hash: "27c346894c0a525287b32524a87c1d7e2e850b6a95f5c9e1e2d3c4b5a6f7e8d", type: "application/x-dosexec", tts: 100, action: "BLOCK", reason: "ClamAV Signature Hit: Win32.Trojan.Agent-1049" }
+            { path: "/mnt/source_ro/annual_report_2026.pdf", size: "1.4 MB", hash: "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855", type: "application/pdf", tts: 0, action: "ALLOW" },
+            { path: "/mnt/source_ro/gateway_architecture_diagram.png", size: "2.8 MB", hash: "8f4e3c2b1a0d9e8f7a6b5c4d3e2f1a0b9c8d7e6f5a4b3c2d1e0f9a8b7c6d5e4", type: "image/png", tts: 5, action: "ALLOW" },
+            { path: "/mnt/source_ro/confidential_backup.zip", size: "18.5 MB", hash: "7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2b3c4d5e6f7a8", type: "application/zip", tts: 45, action: "QUARANTINE", reason: "Encrypted archive header / Anomaly flag" },
+            { path: "/mnt/source_ro/system_patch_update.exe", size: "4.2 MB", hash: "27c346894c0a525287b32524a87c1d7e2e850b6a95f5c9e1e2d3c4b5a6f7e8d", type: "application/x-dosexec", tts: 100, action: "BLOCK", reason: "ClamAV Signature Hit: Win32.Trojan.Agent-1049" }
         ];
 
-        appendLog("info", "[STAGE 1] Device Insertion Detected. Initializing inspection session #GW-8842...");
-        appendLog("info", "[STAGE 2] Mount Isolation: Read-Only OverlayFS established at /mnt/overlay_tmp");
+        appendLog("info", "[STAGE 1] Raspberry Pi udev detected media insertion. Initializing session #GW-8842...");
+        appendLog("info", "[STAGE 2] Mount Isolation: Read-Only OverlayFS established on RPi RAM tmpfs (/mnt/overlay_tmp)");
 
         let step = 0;
         const totalSteps = mockFiles.length;
@@ -153,7 +153,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const currentFile = mockFiles[step - 1];
 
             progressBar.style.width = `${pct}%`;
-            statusText.textContent = `Scanning (${pct}%): ${currentFile.path}`;
+            statusText.textContent = `Scanning on Raspberry Pi (${pct}%): ${currentFile.path}`;
 
             // Append File Result
             const row = document.createElement("tr");
@@ -170,12 +170,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
             // Log details
             if (currentFile.action === "ALLOW") {
-                appendLog("success", `[STAGE 8: ALLOW] Clean file verified: ${currentFile.path}`);
+                appendLog("success", `[STAGE 8: ALLOW] Clean file verified on RPi: ${currentFile.path}`);
             } else if (currentFile.action === "QUARANTINE") {
                 appendLog("warning", `[STAGE 8: QUARANTINE] Anomaly flag (${currentFile.reason}): ${currentFile.path}`);
                 addQuarantineRow(currentFile);
             } else if (currentFile.action === "BLOCK") {
-                appendLog("danger", `[STAGE 8: BLOCK] Malicious file blocked (${currentFile.reason}): ${currentFile.path}`);
+                appendLog("danger", `[STAGE 8: BLOCK] Threat blocked by RPi gateway (${currentFile.reason}): ${currentFile.path}`);
             }
 
             // Update Metrics
@@ -189,13 +189,13 @@ document.addEventListener("DOMContentLoaded", () => {
                 isDemoRunning = false;
                 btnRunDemo.disabled = false;
                 btnRunDemo.textContent = "▶️ Run Live Demo Scan";
-                statusText.textContent = "✅ Scan Complete - Device Inspection Finished";
-                appendLog("info", "[STAGE 9] Audit records saved to SQLite WAL database. Session finished.");
+                statusText.textContent = "✅ Scan Complete - Media Inspection Finished on Raspberry Pi";
+                appendLog("info", "[STAGE 9] Audit log committed to SQLite database on Raspberry Pi. Session completed.");
 
                 // Add to audit list
                 const auditEntry = document.createElement("div");
                 auditEntry.className = "audit-item";
-                auditEntry.innerHTML = `<span class="badge info">SESSION</span> <span>[Session #GW-8842] Complete: 4 files inspected (2 Clean, 1 Quarantined, 1 Blocked)</span>`;
+                auditEntry.innerHTML = `<span class="badge info">SESSION</span> <span>[Session #GW-8842] RPi Scan Finished: 4 files inspected (2 Clean, 1 Quarantined, 1 Blocked)</span>`;
                 auditList.prepend(auditEntry);
             }
         }, 1200);
