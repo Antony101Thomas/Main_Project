@@ -3,12 +3,70 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hardware Security Gateway Dashboard</title>
+    <title>Hardware Security Gateway - Device Selection & Dashboard</title>
     <link rel="stylesheet" href="css/styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="app-container">
+    <!-- Step 1: Device Connection Landing Page -->
+    <div id="landing-page" class="landing-container">
+        <div class="landing-card">
+            <div class="landing-header">
+                <div class="shield-logo">🛡️</div>
+                <h1>Hardware Security Gateway</h1>
+                <p>Isolated Hardware Media Scanner & Threat Inspection Appliance</p>
+            </div>
+
+            <!-- Interface Selection State -->
+            <div id="interface-selection" class="selection-box">
+                <h2>Select Connection Interface</h2>
+                <p class="subtitle">Choose how your external media or device is connected to the gateway:</p>
+
+                <div class="interface-grid">
+                    <button class="interface-card" data-type="usb">
+                        <div class="icon">🔌</div>
+                        <h3>Wired USB</h3>
+                        <p>Flash Drives, External SSDs, Hard Disks</p>
+                        <span class="badge">Bus Monitored</span>
+                    </button>
+
+                    <button class="interface-card" data-type="wifi">
+                        <div class="icon">📶</div>
+                        <h3>WiFi / Network</h3>
+                        <p>Wireless NAS, SMB Shares, Network Drives</p>
+                        <span class="badge">Encrypted</span>
+                    </button>
+
+                    <button class="interface-card" data-type="bluetooth">
+                        <div class="icon">📡</div>
+                        <h3>Bluetooth</h3>
+                        <p>Mobile Phones, OBEX File Transfers</p>
+                        <span class="badge">Wireless</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Detecting / Scanning Radar State (Hidden initially) -->
+            <div id="detection-radar" class="radar-box hidden">
+                <div class="radar-spinner"></div>
+                <h3 id="radar-status-text">Scanning for connected USB devices...</h3>
+                <p class="radar-sub">Inspecting interface hardware & mounting parameters (2-3s)</p>
+
+                <!-- Discovered Device Card (Appears after 2.5 seconds) -->
+                <div id="discovered-device" class="discovered-card hidden">
+                    <div class="discovered-icon" id="device-icon">⚡</div>
+                    <div class="discovered-info">
+                        <h4 id="device-name">Kingston DataTraveler 3.0 (32GB)</h4>
+                        <p id="device-details">Mount: /dev/sdb1 | File System: FAT32 | State: Read-Only</p>
+                    </div>
+                    <button id="btn-open-dashboard" class="btn-primary">Launch Dashboard & Scan 🚀</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Step 2: Main Dashboard View (Hidden initially until device is connected) -->
+    <div id="dashboard-app" class="app-container hidden">
         <!-- Sidebar Navigation -->
         <aside class="sidebar">
             <div class="brand">
@@ -32,9 +90,16 @@
         <!-- Main Content Area -->
         <main class="content-area">
             <header class="top-bar">
-                <h1 id="page-title">Gateway Overview</h1>
-                <div class="device-badge" id="device-badge">
-                    <span>No USB Device Attached</span>
+                <div>
+                    <h1 id="page-title">Gateway Overview</h1>
+                    <p class="text-sub">Hardware-Assisted 9-Stage Malware Inspection Pipeline</p>
+                </div>
+                <div class="top-bar-actions">
+                    <div class="device-badge" id="device-badge">
+                        <span>⚡ Connected: <strong>No Device</strong></span>
+                    </div>
+                    <button id="btn-switch-device" class="btn-secondary">🔌 Switch Device</button>
+                    <button id="btn-run-demo" class="btn-accent">▶️ Run Live Demo Scan</button>
                 </div>
             </header>
 
@@ -62,7 +127,7 @@
                 <div class="card full-width">
                     <h2>Live Activity Stream</h2>
                     <div class="event-log" id="event-log">
-                        <div class="log-entry info">[SYSTEM] Gateway initialized and monitoring udev hot-plug events...</div>
+                        <div class="log-entry info">[SYSTEM] Hardware Gateway initialized and ready for review inspection...</div>
                     </div>
                 </div>
             </section>
@@ -87,7 +152,7 @@
                             <tr>
                                 <th>File Path</th>
                                 <th>Size</th>
-                                <th>SHA-256</th>
+                                <th>SHA-256 Hash</th>
                                 <th>Verified Type</th>
                                 <th>Threat Score</th>
                                 <th>Action</th>
@@ -95,7 +160,30 @@
                         </thead>
                         <tbody id="results-table-body">
                             <tr>
-                                <td colspan="6" class="text-center">No scan results available yet.</td>
+                                <td colspan="6" class="text-center">No scan results available yet. Connect a device or click "Run Live Demo Scan".</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Quarantine Section -->
+            <section id="tab-quarantine" class="tab-content">
+                <div class="card full-width">
+                    <h2>☣️ Isolated Quarantine Vault</h2>
+                    <p class="text-sub">Files flagged with high threat scores are safely stored in `/mnt/quarantine` (Read-only isolated drive).</p>
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>File Name</th>
+                                <th>Detection Reason</th>
+                                <th>Threat Score</th>
+                                <th>Quarantine Path</th>
+                            </tr>
+                        </thead>
+                        <tbody id="quarantine-table-body">
+                            <tr>
+                                <td colspan="4" class="text-center">No quarantined items currently stored.</td>
                             </tr>
                         </tbody>
                     </table>
@@ -107,7 +195,39 @@
                 <div class="card full-width">
                     <h2>Audit Log History</h2>
                     <div class="audit-list" id="audit-list">
-                        <!-- Populated via API -->
+                        <div class="audit-item">
+                            <span class="badge info">INIT</span>
+                            <span>[Gateway Startup] SQLite WAL Audit Log Initialized</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Settings Section -->
+            <section id="tab-settings" class="tab-content">
+                <div class="card full-width">
+                    <h2>⚙️ Gateway Configuration</h2>
+                    <div class="settings-grid">
+                        <div class="setting-item">
+                            <label>ClamAV Antivirus Daemon</label>
+                            <span class="status-active">ENABLED</span>
+                        </div>
+                        <div class="setting-item">
+                            <label>YARA Custom Engine</label>
+                            <span class="status-active">ACTIVE (default_rules.yar)</span>
+                        </div>
+                        <div class="setting-item">
+                            <label>OverlayFS RAM Workspace</label>
+                            <span class="status-active">tmpfs (/mnt/overlay_tmp)</span>
+                        </div>
+                        <div class="setting-item">
+                            <label>Threat Threshold (BLOCK)</label>
+                            <span>TTS >= 70</span>
+                        </div>
+                        <div class="setting-item">
+                            <label>Threat Threshold (QUARANTINE)</label>
+                            <span>TTS >= 30</span>
+                        </div>
                     </div>
                 </div>
             </section>

@@ -1,9 +1,104 @@
 document.addEventListener("DOMContentLoaded", () => {
-    // Navigation Tab Switching
+    // UI Containers
+    const landingPage = document.getElementById("landing-page");
+    const dashboardApp = document.getElementById("dashboard-app");
+    const interfaceSelection = document.getElementById("interface-selection");
+    const detectionRadar = document.getElementById("detection-radar");
+    const radarStatusText = document.getElementById("radar-status-text");
+    const discoveredDevice = document.getElementById("discovered-device");
+    const deviceIcon = document.getElementById("device-icon");
+    const deviceName = document.getElementById("device-name");
+    const deviceDetails = document.getElementById("device-details");
+    const btnOpenDashboard = document.getElementById("btn-open-dashboard");
+    const btnSwitchDevice = document.getElementById("btn-switch-device");
+    const btnRunDemo = document.getElementById("btn-run-demo");
+    const deviceBadge = document.getElementById("device-badge");
+
+    // Nav Links & Tabs
     const navLinks = document.querySelectorAll(".nav-link");
     const tabContents = document.querySelectorAll(".tab-content");
     const pageTitle = document.getElementById("page-title");
 
+    let currentSelectedType = "usb";
+    let activeDeviceData = null;
+
+    // Simulated Preset Devices
+    const devicePresets = {
+        usb: {
+            icon: "🔌",
+            name: "Kingston DataTraveler 3.0 (32GB)",
+            details: "Mount: /dev/sdb1 | File System: FAT32 | State: Read-Only Isolated",
+            badge: "🔌 USB 3.0: Kingston 32GB"
+        },
+        wifi: {
+            icon: "📶",
+            name: "Office_Secure_NAS_Volume (192.168.1.105)",
+            details: "Protocol: SMB3 Encrypted | Capacity: 2.5 TB | Auth: Kerberos",
+            badge: "📶 WiFi NAS: 192.168.1.105"
+        },
+        bluetooth: {
+            icon: "📡",
+            name: "Galaxy_S24_Ultra_OBEX",
+            details: "Protocol: Bluetooth OBEX v5.3 | Transit Channel: Secure Sandbox",
+            badge: "📡 Bluetooth: Galaxy S24"
+        }
+    };
+
+    // Handle Interface Card Click
+    const interfaceCards = document.querySelectorAll(".interface-card");
+    interfaceCards.forEach(card => {
+        card.addEventListener("click", () => {
+            currentSelectedType = card.getAttribute("data-type");
+            startDeviceDetection(currentSelectedType);
+        });
+    });
+
+    function startDeviceDetection(type) {
+        interfaceSelection.classList.add("hidden");
+        detectionRadar.classList.remove("hidden");
+        discoveredDevice.classList.add("hidden");
+
+        const labels = {
+            usb: "Scanning USB 3.0/2.0 hardware bus for attached block devices...",
+            wifi: "Searching local wireless network for active SMB/NFS storage shares...",
+            bluetooth: "Polling Bluetooth OBEX channels for incoming device transfer requests..."
+        };
+
+        radarStatusText.textContent = labels[type] || "Scanning interface bus...";
+
+        // Simulate 2.5 second hardware detection delay
+        setTimeout(() => {
+            const preset = devicePresets[type];
+            activeDeviceData = preset;
+            deviceIcon.textContent = preset.icon;
+            deviceName.textContent = preset.name;
+            deviceDetails.textContent = preset.details;
+
+            radarStatusText.textContent = "⚡ Device Interface Successfully Detected!";
+            discoveredDevice.classList.remove("hidden");
+        }, 2500);
+    }
+
+    // Open Dashboard Button
+    btnOpenDashboard.addEventListener("click", () => {
+        landingPage.classList.add("hidden");
+        dashboardApp.classList.remove("hidden");
+
+        if (activeDeviceData) {
+            deviceBadge.innerHTML = `<span>${activeDeviceData.badge}</span>`;
+            appendLog("success", `[DEVICE CONNECTED] Interface: ${activeDeviceData.name}`);
+        }
+    });
+
+    // Switch Device Button
+    btnSwitchDevice.addEventListener("click", () => {
+        dashboardApp.classList.add("hidden");
+        landingPage.classList.remove("hidden");
+        interfaceSelection.classList.remove("hidden");
+        detectionRadar.classList.add("hidden");
+    });
+
+    // Navigation Tab Switching
     navLinks.forEach(link => {
         link.addEventListener("click", (e) => {
             e.preventDefault();
@@ -18,48 +113,104 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
-    // WebSockets Real-Time Client
-    const wsProtocol = window.location.protocol === "https:" ? "wss:" : "ws:";
-    const wsUrl = `${wsProtocol}//${window.location.host}/ws/scan-events`;
-    let socket;
+    // Interactive Live Demo Scan Simulation
+    let isDemoRunning = false;
+    btnRunDemo.addEventListener("click", () => {
+        if (isDemoRunning) return;
+        runFullDemoScan();
+    });
 
-    function connectWebSocket() {
-        socket = new WebSocket(wsUrl);
+    function runFullDemoScan() {
+        isDemoRunning = true;
+        btnRunDemo.disabled = true;
+        btnRunDemo.textContent = "⏳ Scanning in Progress...";
 
-        socket.onopen = () => {
-            console.log("[Gateway WebSockets] Connected to server");
-            appendLog("info", "[SYSTEM] Connected to scan events WebSocket endpoint.");
-        };
+        const progressBar = document.getElementById("scan-progress-bar");
+        const statusText = document.getElementById("scan-status-text");
+        const resultsTable = document.getElementById("results-table-body");
+        const quarantineTable = document.getElementById("quarantine-table-body");
+        const auditList = document.getElementById("audit-list");
 
-        socket.onmessage = (event) => {
-            try {
-                const payload = JSON.parse(event.data);
-                handleScanEvent(payload);
-            } catch (err) {
-                console.error("Failed to parse WebSocket message", err);
+        resultsTable.innerHTML = "";
+        quarantineTable.innerHTML = "";
+
+        const mockFiles = [
+            { path: "/media/docs/annual_financial_report_2026.pdf", size: "1.4 MB", hash: "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855", type: "application/pdf", tts: 0, action: "ALLOW" },
+            { path: "/media/images/gateway_architecture_diagram.png", size: "2.8 MB", hash: "8f4e3c2b1a0d9e8f7a6b5c4d3e2f1a0b9c8d7e6f5a4b3c2d1e0f9a8b7c6d5e4", type: "image/png", tts: 5, action: "ALLOW" },
+            { path: "/media/archives/confidential_backup_pass.zip", size: "18.5 MB", hash: "7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2b3c4d5e6f7a8", type: "application/zip", tts: 45, action: "QUARANTINE", reason: "Encrypted header / Suspect archive depth" },
+            { path: "/media/binaries/system_driver_update.exe", size: "4.2 MB", hash: "27c346894c0a525287b32524a87c1d7e2e850b6a95f5c9e1e2d3c4b5a6f7e8d", type: "application/x-dosexec", tts: 100, action: "BLOCK", reason: "ClamAV Signature Hit: Win32.Trojan.Agent-1049" }
+        ];
+
+        appendLog("info", "[STAGE 1] Device Insertion Detected. Initializing inspection session #GW-8842...");
+        appendLog("info", "[STAGE 2] Mount Isolation: Read-Only OverlayFS established at /mnt/overlay_tmp");
+
+        let step = 0;
+        const totalSteps = mockFiles.length;
+
+        const interval = setInterval(() => {
+            step++;
+            const pct = Math.round((step / totalSteps) * 100);
+            const currentFile = mockFiles[step - 1];
+
+            progressBar.style.width = `${pct}%`;
+            statusText.textContent = `Scanning (${pct}%): ${currentFile.path}`;
+
+            // Append File Result
+            const row = document.createElement("tr");
+            let badgeClass = currentFile.action.toLowerCase();
+            row.innerHTML = `
+                <td><code>${currentFile.path}</code></td>
+                <td>${currentFile.size}</td>
+                <td><code>${currentFile.hash.substring(0, 16)}...</code></td>
+                <td>${currentFile.type}</td>
+                <td><strong>${currentFile.tts}/100</strong></td>
+                <td><span class="badge-status ${badgeClass}">${currentFile.action}</span></td>
+            `;
+            resultsTable.appendChild(row);
+
+            // Log details
+            if (currentFile.action === "ALLOW") {
+                appendLog("success", `[STAGE 8: ALLOW] Clean file verified: ${currentFile.path}`);
+            } else if (currentFile.action === "QUARANTINE") {
+                appendLog("warning", `[STAGE 8: QUARANTINE] Anomaly flag (${currentFile.reason}): ${currentFile.path}`);
+                addQuarantineRow(currentFile);
+            } else if (currentFile.action === "BLOCK") {
+                appendLog("danger", `[STAGE 8: BLOCK] Malicious file blocked (${currentFile.reason}): ${currentFile.path}`);
             }
-        };
 
-        socket.onclose = () => {
-            appendLog("warning", "[SYSTEM] WebSockets disconnected. Retrying in 5 seconds...");
-            setTimeout(connectWebSocket, 5000);
-        };
+            // Update Metrics
+            document.getElementById("metric-sessions").textContent = "1";
+            document.getElementById("metric-files").textContent = step;
+            document.getElementById("metric-quarantine").textContent = mockFiles.filter(f => f.action === "QUARANTINE" && mockFiles.indexOf(f) < step).length;
+            document.getElementById("metric-blocked").textContent = mockFiles.filter(f => f.action === "BLOCK" && mockFiles.indexOf(f) < step).length;
+
+            if (step >= totalSteps) {
+                clearInterval(interval);
+                isDemoRunning = false;
+                btnRunDemo.disabled = false;
+                btnRunDemo.textContent = "▶️ Run Live Demo Scan";
+                statusText.textContent = "✅ Scan Complete - Device Inspection Finished";
+                appendLog("info", "[STAGE 9] Audit records saved to SQLite WAL database. Session finished.");
+
+                // Add to audit list
+                const auditEntry = document.createElement("div");
+                auditEntry.className = "audit-item";
+                auditEntry.innerHTML = `<span class="badge info">SESSION</span> <span>[Session #GW-8842] Complete: 4 files inspected (2 Clean, 1 Quarantined, 1 Blocked)</span>`;
+                auditList.prepend(auditEntry);
+            }
+        }, 1200);
     }
 
-    function handleScanEvent(event) {
-        if (event.type === "DEVICE_CONNECTED") {
-            document.getElementById("device-badge").innerHTML = `<span>⚡ Device Attached: <strong>${event.data.name}</strong></span>`;
-            appendLog("info", `[DEVICE] New USB device connected: ${event.data.name}`);
-        } else if (event.type === "SCAN_PROGRESS") {
-            const progressBar = document.getElementById("scan-progress-bar");
-            const statusText = document.getElementById("scan-status-text");
-            const percentage = event.data.percentage || 0;
-
-            progressBar.style.width = `${percentage}%`;
-            statusText.textContent = `Scanning... ${event.data.current_file} (${percentage}%)`;
-        } else if (event.type === "THREAT_ALERT") {
-            appendLog("danger", `[THREAT ALERT] File: ${event.data.path} - Action: ${event.data.action} (${event.data.reason})`);
-        }
+    function addQuarantineRow(file) {
+        const quarantineTable = document.getElementById("quarantine-table-body");
+        const qRow = document.createElement("tr");
+        qRow.innerHTML = `
+            <td><code>${file.path.split('/').pop()}</code></td>
+            <td>${file.reason}</td>
+            <td><strong>${file.tts}</strong></td>
+            <td><code>/mnt/quarantine/${file.hash.substring(0, 12)}_${file.path.split('/').pop()}</code></td>
+        `;
+        quarantineTable.appendChild(qRow);
     }
 
     function appendLog(type, message) {
@@ -70,7 +221,4 @@ document.addEventListener("DOMContentLoaded", () => {
         logContainer.appendChild(entry);
         logContainer.scrollTop = logContainer.scrollHeight;
     }
-
-    // Initialize WebSockets connection
-    connectWebSocket();
 });
