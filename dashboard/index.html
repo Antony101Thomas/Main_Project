@@ -3,45 +3,45 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Raspberry Pi Hardware Security Gateway</title>
+    <title>Hardware Security Gateway</title>
     <link rel="stylesheet" href="css/styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <!-- Step 1: Raspberry Pi Gateway GUI Connection Landing Page -->
+    <!-- Step 1: Gateway GUI Connection Landing Page -->
     <div id="landing-page" class="landing-container">
         <div class="landing-card">
             <div class="landing-header">
-                <div class="shield-logo">🍓🛡️</div>
+                <div class="shield-logo">🛡️</div>
                 <h1>Hardware Security Gateway</h1>
-                <p>Connect to the Raspberry Pi Security Gateway Device to Access the GUI Dashboard</p>
+                <p>Connect to the Hardware Security Gateway to Access the Dashboard GUI</p>
             </div>
 
             <!-- Interface Selection State -->
             <div id="interface-selection" class="selection-box">
-                <h2>Select Connection Method to Gateway</h2>
-                <p class="subtitle">Choose how your computer or mobile device connects to the Raspberry Pi hardware:</p>
+                <h2>Select Connection Method</h2>
+                <p class="subtitle">Choose how to connect your device to access the dashboard GUI:</p>
 
                 <div class="interface-grid">
                     <button class="interface-card" data-type="usb">
                         <div class="icon">🔌</div>
                         <h3>Wired USB (Type-A / Type-C)</h3>
-                        <p>Direct USB Cable Tethering & Gadget Interface</p>
-                        <span class="badge">Wired Cable</span>
+                        <p>Connect via USB-A or USB-C Cable</p>
+                        <span class="badge">Wired USB</span>
                     </button>
 
                     <button class="interface-card" data-type="wifi">
                         <div class="icon">📶</div>
                         <h3>WiFi Network</h3>
-                        <p>Connect via Pi Hotspot or LAN (192.168.4.1)</p>
-                        <span class="badge">Wireless Network</span>
+                        <p>Connect using WiFi</p>
+                        <span class="badge">WiFi</span>
                     </button>
 
                     <button class="interface-card" data-type="bluetooth">
                         <div class="icon">📡</div>
                         <h3>Bluetooth</h3>
-                        <p>Pair with Raspberry Pi Bluetooth Interface</p>
-                        <span class="badge">Bluetooth Paired</span>
+                        <p>Connect via Bluetooth</p>
+                        <span class="badge">Bluetooth</span>
                     </button>
                 </div>
             </div>
@@ -49,15 +49,15 @@
             <!-- Detecting / Scanning Radar State (Hidden initially) -->
             <div id="detection-radar" class="radar-box hidden">
                 <div class="radar-spinner"></div>
-                <h3 id="radar-status-text">Connecting to Raspberry Pi Security Gateway...</h3>
+                <h3 id="radar-status-text">Connecting to Hardware Security Gateway...</h3>
                 <p class="radar-sub">Establishing connection and initializing GUI dashboard session (2-3s)</p>
 
                 <!-- Discovered Device Card (Appears after 2.5 seconds) -->
                 <div id="discovered-device" class="discovered-card hidden">
-                    <div class="discovered-icon" id="device-icon">🍓</div>
+                    <div class="discovered-icon" id="device-icon">⚡</div>
                     <div class="discovered-info">
-                        <h4 id="device-name">Raspberry Pi Security Gateway Device</h4>
-                        <p id="device-details">Connection: Wired USB-C | Host: 192.168.4.1 | Status: Connected & Online</p>
+                        <h4 id="device-name">Hardware Security Gateway Device</h4>
+                        <p id="device-details">Status: Connected & Online | Ready for Inspection</p>
                     </div>
                     <button id="btn-open-dashboard" class="btn-primary">Access Gateway GUI Dashboard 🚀</button>
                 </div>
@@ -70,8 +70,8 @@
         <!-- Sidebar Navigation -->
         <aside class="sidebar">
             <div class="brand">
-                <span class="shield-icon">🍓🛡️</span>
-                <h2>RPi Security Gateway</h2>
+                <span class="shield-icon">🛡️</span>
+                <h2>Gateway Dashboard</h2>
             </div>
             <nav class="nav-menu">
                 <a href="#overview" class="nav-link active" data-tab="overview">📊 Overview</a>
@@ -92,11 +92,11 @@
             <header class="top-bar">
                 <div>
                     <h1 id="page-title">Gateway Overview</h1>
-                    <p class="text-sub">Raspberry Pi Hardware-Assisted 9-Stage Malware Inspection Pipeline</p>
+                    <p class="text-sub">Hardware-Assisted 9-Stage Malware Inspection Pipeline</p>
                 </div>
                 <div class="top-bar-actions">
                     <div class="device-badge" id="device-badge">
-                        <span>⚡ Connected: <strong>Wired USB-C Gateway</strong></span>
+                        <span>⚡ Connected: <strong>Wired USB Gateway</strong></span>
                     </div>
                     <button id="btn-switch-device" class="btn-secondary">🔌 Switch Connection</button>
                     <button id="btn-run-demo" class="btn-accent">▶️ Run 9-Stage Demo Scan</button>
@@ -127,7 +127,7 @@
                 <div class="card full-width">
                     <h2>Live Activity Stream</h2>
                     <div class="event-log" id="event-log">
-                        <div class="log-entry info">[SYSTEM] Raspberry Pi Gateway initialized and monitoring udev hot-plug events...</div>
+                        <div class="log-entry info">[SYSTEM] Hardware Gateway initialized and monitoring udev hot-plug events...</div>
                     </div>
                 </div>
             </section>
@@ -139,7 +139,7 @@
                     <div class="progress-bar-container">
                         <div class="progress-bar" id="scan-progress-bar" style="width: 0%;"></div>
                     </div>
-                    <p id="scan-status-text">Idle - Awaiting media insertion on Raspberry Pi</p>
+                    <p id="scan-status-text">Idle - Awaiting media insertion</p>
                 </div>
             </section>
 
@@ -160,7 +160,7 @@
                         </thead>
                         <tbody id="results-table-body">
                             <tr>
-                                <td colspan="6" class="text-center">No scan results available yet. Insert media into Raspberry Pi or click "Run 9-Stage Demo Scan".</td>
+                                <td colspan="6" class="text-center">No scan results available yet. Insert media or click "Run 9-Stage Demo Scan".</td>
                             </tr>
                         </tbody>
                     </table>
@@ -206,11 +206,11 @@
             <!-- Settings Section -->
             <section id="tab-settings" class="tab-content">
                 <div class="card full-width">
-                    <h2>⚙️ Raspberry Pi 5 Gateway System Specifications</h2>
+                    <h2>⚙️ Hardware Gateway System Specifications</h2>
                     <div class="settings-grid">
                         <div class="setting-item">
-                            <label>Hardware Compute Platform</label>
-                            <span class="status-active">Raspberry Pi 5 (Raspberry Pi OS 64-bit)</span>
+                            <label>Hardware Platform</label>
+                            <span class="status-active">Embedded Security Appliance</span>
                         </div>
                         <div class="setting-item">
                             <label>Media Mount Protection</label>

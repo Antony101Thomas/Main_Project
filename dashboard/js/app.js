@@ -22,24 +22,24 @@ document.addEventListener("DOMContentLoaded", () => {
     let currentSelectedType = "usb";
     let activeConnectionData = null;
 
-    // The 3 Connection Methods to Access the Raspberry Pi Security Gateway GUI
+    // Connection Methods
     const connectionPresets = {
         usb: {
             icon: "🔌",
-            name: "Wired USB (Type-A / Type-C Tethering)",
-            details: "Connection: USB Ethernet Gadget Mode | Speed: 10 Gbps High-Speed | Host: 192.168.7.2",
-            badge: "🔌 Connected via Wired USB-C"
+            name: "Wired USB Connection (USB-A / USB-C)",
+            details: "Connection: Wired USB Cable Interface | Speed: High-Speed | Status: Active",
+            badge: "🔌 Connected via Wired USB"
         },
         wifi: {
             icon: "📶",
-            name: "WiFi Network (Raspberry Pi AP / LAN)",
-            details: "Connection: Pi WiFi Hotspot | Host: 192.168.4.1 | Protocol: WPA3 Encrypted",
-            badge: "📶 Connected via WiFi (192.168.4.1)"
+            name: "WiFi Network Connection",
+            details: "Connection: WiFi Network Interface | Protocol: WPA3 Encrypted | Status: Active",
+            badge: "📶 Connected via WiFi"
         },
         bluetooth: {
             icon: "📡",
-            name: "Bluetooth Wireless Pairing",
-            details: "Connection: Raspberry Pi Bluetooth | Profile: BlueZ PAN/OBEX v5.3 | Mode: Paired",
+            name: "Bluetooth Wireless Connection",
+            details: "Connection: Bluetooth Interface | Profile: Paired OBEX Channel | Status: Active",
             badge: "📡 Connected via Bluetooth"
         }
     };
@@ -59,12 +59,12 @@ document.addEventListener("DOMContentLoaded", () => {
         discoveredDevice.classList.add("hidden");
 
         const labels = {
-            usb: "Connecting to Raspberry Pi Gateway via Wired USB Type-A / Type-C cable...",
-            wifi: "Connecting to Raspberry Pi Gateway via WiFi Access Point (192.168.4.1)...",
-            bluetooth: "Establishing Bluetooth pairing channel with Raspberry Pi Gateway..."
+            usb: "Connecting to Hardware Security Gateway via Wired USB (Type-A / Type-C)...",
+            wifi: "Connecting to Hardware Security Gateway using WiFi...",
+            bluetooth: "Establishing connection to Hardware Security Gateway via Bluetooth..."
         };
 
-        radarStatusText.textContent = labels[type] || "Connecting to Raspberry Pi Gateway...";
+        radarStatusText.textContent = labels[type] || "Connecting to Hardware Security Gateway...";
 
         // Simulate 2.5 second connection setup delay
         setTimeout(() => {
@@ -74,7 +74,7 @@ document.addEventListener("DOMContentLoaded", () => {
             deviceName.textContent = preset.name;
             deviceDetails.textContent = preset.details;
 
-            radarStatusText.textContent = "⚡ Successfully Connected to Raspberry Pi Security Gateway!";
+            radarStatusText.textContent = "⚡ Successfully Connected to Hardware Security Gateway!";
             discoveredDevice.classList.remove("hidden");
         }, 2500);
     }
@@ -86,7 +86,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         if (activeConnectionData) {
             deviceBadge.innerHTML = `<span>${activeConnectionData.badge}</span>`;
-            appendLog("success", `[GUI CONNECTED] Established session with Raspberry Pi Gateway via ${activeConnectionData.name}`);
+            appendLog("success", `[GUI CONNECTED] Established session via ${activeConnectionData.name}`);
         }
     });
 
@@ -141,7 +141,7 @@ document.addEventListener("DOMContentLoaded", () => {
             { path: "/mnt/source_ro/firmware_update.exe", size: "4.2 MB", hash: "27c346894c0a525287b32524a87c1d7e2e850b6a95f5c9e1e2d3c4b5a6f7e8d", type: "application/x-dosexec", tts: 100, action: "BLOCK", reason: "ClamAV Signature Hit: Win32.Trojan.Agent-1049" }
         ];
 
-        appendLog("info", "[STAGE 1] Device Detection: pyudev registered media insertion on Raspberry Pi. Session #GW-9041 created.");
+        appendLog("info", "[STAGE 1] Device Detection: pyudev registered media insertion. Session #GW-9041 created.");
         appendLog("info", "[STAGE 2] Read-Only Mount: Source mounted ro at /mnt/source_ro; OverlayFS RAM workspace linked.");
 
         let step = 0;
