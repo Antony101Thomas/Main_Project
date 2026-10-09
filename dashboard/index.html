@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hardware Security Gateway Dashboard</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <div class="brand">
+                <span class="shield-icon">🛡️</span>
+                <h2>Gateway Dashboard</h2>
+            </div>
+            <nav class="nav-menu">
+                <a href="#overview" class="nav-link active" data-tab="overview">📊 Overview</a>
+                <a href="#active-scan" class="nav-link" data-tab="active-scan">🔍 Active Scan</a>
+                <a href="#results" class="nav-link" data-tab="results">📄 File Results</a>
+                <a href="#quarantine" class="nav-link" data-tab="quarantine">☣️ Quarantine</a>
+                <a href="#audit" class="nav-link" data-tab="audit">📜 Audit History</a>
+                <a href="#settings" class="nav-link" data-tab="settings">⚙️ Settings</a>
+            </nav>
+            <div class="system-status">
+                <span class="status-indicator online"></span>
+                <span>System Status: <strong>ONLINE</strong></span>
+            </div>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="content-area">
+            <header class="top-bar">
+                <h1 id="page-title">Gateway Overview</h1>
+                <div class="device-badge" id="device-badge">
+                    <span>No USB Device Attached</span>
+                </div>
+            </header>
+
+            <!-- Overview Section -->
+            <section id="tab-overview" class="tab-content active">
+                <div class="metrics-grid">
+                    <div class="card metric">
+                        <h3>Scanned Sessions</h3>
+                        <p class="metric-value" id="metric-sessions">0</p>
+                    </div>
+                    <div class="card metric">
+                        <h3>Files Examined</h3>
+                        <p class="metric-value" id="metric-files">0</p>
+                    </div>
+                    <div class="card metric warning">
+                        <h3>Quarantined Items</h3>
+                        <p class="metric-value" id="metric-quarantine">0</p>
+                    </div>
+                    <div class="card metric danger">
+                        <h3>Threats Blocked</h3>
+                        <p class="metric-value" id="metric-blocked">0</p>
+                    </div>
+                </div>
+
+                <div class="card full-width">
+                    <h2>Live Activity Stream</h2>
+                    <div class="event-log" id="event-log">
+                        <div class="log-entry info">[SYSTEM] Gateway initialized and monitoring udev hot-plug events...</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Active Scan Section -->
+            <section id="tab-active-scan" class="tab-content">
+                <div class="card full-width">
+                    <h2>Current Scan Progress</h2>
+                    <div class="progress-bar-container">
+                        <div class="progress-bar" id="scan-progress-bar" style="width: 0%;"></div>
+                    </div>
+                    <p id="scan-status-text">Idle - Awaiting media insertion</p>
+                </div>
+            </section>
+
+            <!-- File Results Section -->
+            <section id="tab-results" class="tab-content">
+                <div class="card full-width">
+                    <h2>File Inspection Records</h2>
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>File Path</th>
+                                <th>Size</th>
+                                <th>SHA-256</th>
+                                <th>Verified Type</th>
+                                <th>Threat Score</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="results-table-body">
+                            <tr>
+                                <td colspan="6" class="text-center">No scan results available yet.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Audit History Section -->
+            <section id="tab-audit" class="tab-content">
+                <div class="card full-width">
+                    <h2>Audit Log History</h2>
+                    <div class="audit-list" id="audit-list">
+                        <!-- Populated via API -->
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="js/app.js"></script>
+</body>
+</html>

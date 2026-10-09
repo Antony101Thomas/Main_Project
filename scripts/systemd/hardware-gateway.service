@@ -1,0 +1,14 @@
+[Unit]
+Description=Hardware-Assisted Removable Media Security Gateway Daemon
+After=network.target clamav-daemon.service
+
+[Service]
+Type=simple
+User=root
+WorkingDirectory=/opt/main-project/backend
+ExecStart=/opt/main-project/backend/venv/bin/python -m app.main
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
