@@ -3,87 +3,354 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hardware Security Gateway</title>
+    <title>Hardware Security Gateway | Cyber Defense Terminal</title>
     <link rel="stylesheet" href="css/styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:ital,wght@0,400;0,600;0,700;1,600&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 </head>
-<body>
-    <!-- Step 1: Gateway GUI Connection Landing Page -->
-    <div id="landing-page" class="landing-container">
-        <div class="landing-card">
-            <div class="landing-header">
-                <div class="shield-logo">🛡️</div>
-                <h1>Hardware Security Gateway</h1>
-                <p>Connect to the Hardware Security Gateway to Access the Dashboard GUI</p>
+<body class="cyber-theme">
+    <!-- Cyber Background Grid & Ambient Particle Glow -->
+    <div class="cyber-grid-overlay"></div>
+    <div class="ambient-glow cyan-orb"></div>
+    <div class="ambient-glow emerald-orb"></div>
+
+    <!-- Floating Global Theme Toggle (Accessible on all screens) -->
+    <button id="btn-floating-theme-toggle" class="floating-theme-toggle" title="Toggle Light / Dark Mode" aria-label="Toggle Theme">
+        <span class="theme-toggle-icon">☀️</span>
+        <span class="theme-toggle-label">LIGHT MODE</span>
+    </button>
+
+    <!-- Step 0: High-Tech Cyber Security Access Terminal -->
+    <div id="login-page" class="login-page-wrapper">
+        <div class="cyber-hud-card">
+            <!-- HUD Corner Brackets -->
+            <div class="hud-bracket top-left"></div>
+            <div class="hud-bracket top-right"></div>
+            <div class="hud-bracket bottom-left"></div>
+            <div class="hud-bracket bottom-right"></div>
+
+            <!-- Left Panel: Holographic Cyber Defense Matrix / Radar Core -->
+            <div class="cyber-visual-panel">
+                <div class="cyber-radar-scene">
+                    <svg class="radar-hud-svg" viewBox="0 0 360 360" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <!-- Outer Range Rings -->
+                        <circle cx="180" cy="180" r="160" stroke="rgba(0, 240, 255, 0.15)" stroke-width="1.5" stroke-dasharray="4 6" />
+                        <circle cx="180" cy="180" r="130" stroke="rgba(0, 240, 255, 0.25)" stroke-width="1" />
+                        <circle cx="180" cy="180" r="95" stroke="rgba(0, 255, 157, 0.3)" stroke-width="1.5" stroke-dasharray="10 5" />
+                        <circle cx="180" cy="180" r="60" stroke="rgba(0, 240, 255, 0.4)" stroke-width="1" />
+
+                        <!-- Crosshair Axes -->
+                        <line x1="180" y1="10" x2="180" y2="350" stroke="rgba(0, 240, 255, 0.18)" stroke-width="1" stroke-dasharray="4 4" />
+                        <line x1="10" y1="180" x2="350" y2="180" stroke="rgba(0, 240, 255, 0.18)" stroke-width="1" stroke-dasharray="4 4" />
+
+                        <!-- Rotating Outer Dial Ring with Graduation Ticks -->
+                        <g class="rotating-dial-cw">
+                            <circle cx="180" cy="180" r="148" stroke="rgba(0, 240, 255, 0.45)" stroke-width="2" stroke-dasharray="12 18 2 18" />
+                            <polygon points="180,24 176,34 184,34" fill="#00f0ff" />
+                            <polygon points="180,336 176,326 184,326" fill="#00f0ff" />
+                            <polygon points="24,180 34,176 34,184" fill="#00f0ff" />
+                            <polygon points="336,180 326,176 326,184" fill="#00f0ff" />
+                        </g>
+
+                        <!-- Counter-Rotating Segmented Arcs -->
+                        <g class="rotating-dial-ccw">
+                            <circle cx="180" cy="180" r="112" stroke="rgba(0, 255, 157, 0.65)" stroke-width="2.5" stroke-dasharray="50 30 15 30" />
+                        </g>
+
+                        <!-- 360-Degree Animated Radar Sweep Beam -->
+                        <g class="radar-sweep-beam">
+                            <path d="M180 180 L330 180 A150 150 0 0 0 286 74 Z" fill="url(#radarGradient)" opacity="0.6" />
+                            <line x1="180" y1="180" x2="330" y2="180" stroke="#00f0ff" stroke-width="2" />
+                        </g>
+
+                        <!-- Central Hexagonal Cyber Shield Core -->
+                        <g class="pulsing-shield-core">
+                            <polygon points="180,140 215,160 215,200 180,220 145,200 145,160" fill="rgba(0, 240, 255, 0.12)" stroke="#00f0ff" stroke-width="2.5" />
+                            <polygon points="180,148 206,163 206,197 180,212 154,197 154,163" fill="rgba(0, 255, 157, 0.15)" stroke="#00ff9d" stroke-width="1.5" />
+                            <!-- Central Lock / Shield Glyph -->
+                            <path d="M174 176 L186 176 C188 176 190 178 190 180 L190 192 C190 194 188 196 186 196 L174 196 C172 196 170 194 170 192 L170 180 C170 178 172 176 174 176 Z" fill="#00ff9d" />
+                            <path d="M173 176 L173 171 C173 167 176 164 180 164 C184 164 187 167 187 171 L187 176" stroke="#00ff9d" stroke-width="2" fill="none" />
+                        </g>
+
+                        <!-- Radar Gradient Definition -->
+                        <defs>
+                            <radialGradient id="radarGradient" cx="180" cy="180" r="160" gradientUnits="userSpaceOnUse">
+                                <stop offset="0%" stop-color="#00f0ff" stop-opacity="0.6" />
+                                <stop offset="60%" stop-color="#00f0ff" stop-opacity="0.1" />
+                                <stop offset="100%" stop-color="#00f0ff" stop-opacity="0" />
+                            </radialGradient>
+                        </defs>
+                    </svg>
+
+                    <!-- Real-time HUD Telemetry Readouts -->
+                    <div class="radar-telemetry-box">
+                        <div class="telemetry-chip active">
+                            <span class="dot emerald"></span>
+                            <span>DEFENSE CORE: ARMED</span>
+                        </div>
+                        <div class="telemetry-chip">
+                            <span class="dot cyan"></span>
+                            <span>CRYPTO-ENGINE: RUST SHA-256</span>
+                        </div>
+                        <div class="telemetry-chip">
+                            <span class="dot cyan"></span>
+                            <span>KERNEL LOCK: RO OVERLAYFS</span>
+                        </div>
+                    </div>
+                </div>
             </div>
 
-            <!-- Interface Selection State -->
+            <!-- Right Panel: Operator Security Clearance Console -->
+            <div class="cyber-form-panel">
+                <div class="terminal-header">
+                    <div class="terminal-badge">SECURE ACCESS TERMINAL</div>
+                    <h1 class="cyber-title">OPERATOR CLEARANCE</h1>
+                    <p class="cyber-subtitle">Hardware-Assisted Removable Media Gateway Interface</p>
+                </div>
+
+                <form id="login-form" class="cyber-auth-form" autocomplete="on">
+                    <!-- Email / Operator ID Field -->
+                    <div class="cyber-input-group">
+                        <label for="login-email" class="cyber-label">
+                            <span class="label-tag">OPERATOR IDENTIFIER</span>
+                            <span class="label-status" id="email-status-label">AWAITING CREDENTIAL</span>
+                        </label>
+                        <div class="input-line-wrapper">
+                            <span class="terminal-prefix">&gt;</span>
+                            <input 
+                                type="email" 
+                                id="login-email" 
+                                class="cyber-input" 
+                                placeholder="operator@gateway.sec" 
+                                value="admin@gateway.sec"
+                                required 
+                                spellcheck="false"
+                            />
+                            <div id="email-valid-icon" class="cyber-valid-badge hidden" title="Identity Verified">
+                                <span class="badge-icon">✓ VERIFIED</span>
+                            </div>
+                        </div>
+                        <div class="cyber-glow-bar"></div>
+                    </div>
+
+                    <!-- Password / Access Token Field -->
+                    <div class="cyber-input-group">
+                        <label for="login-password" class="cyber-label">
+                            <span class="label-tag">CLEARANCE SECURITY TOKEN</span>
+                            <span class="label-status">ENCRYPTED</span>
+                        </label>
+                        <div class="input-line-wrapper">
+                            <span class="terminal-prefix">&gt;</span>
+                            <input 
+                                type="password" 
+                                id="login-password" 
+                                class="cyber-input" 
+                                placeholder="••••••••••••" 
+                                value="admin123"
+                                required 
+                            />
+                            <button type="button" id="btn-toggle-password" class="cyber-eye-btn" title="Toggle token visibility" aria-label="Toggle token visibility">
+                                <svg id="eye-icon" viewBox="0 0 24 24" class="svg-eye" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                                    <circle cx="12" cy="12" r="3"></circle>
+                                </svg>
+                            </button>
+                        </div>
+                        <div class="cyber-glow-bar active-glow"></div>
+                    </div>
+
+                    <!-- Action Button: Cyber Laser Pill -->
+                    <div class="cyber-btn-wrap">
+                        <button type="submit" id="btn-login-submit" class="btn-cyber-laser">
+                            <span class="btn-text">INITIALIZE GATEWAY ACCESS</span>
+                            <span class="btn-spinner hidden"></span>
+                            <span class="laser-shine"></span>
+                        </button>
+                    </div>
+
+                    <!-- Forgot Password / Key Recovery Link -->
+                    <div class="cyber-links-bar">
+                        <a href="#" id="link-forgot-password" class="cyber-link">Request Security Override Token</a>
+                    </div>
+
+                    <!-- Demo Quick Fill Credential Pod -->
+                    <div class="demo-credential-pod">
+                        <span class="demo-icon">⚡</span>
+                        <span class="demo-text">TACTICAL DEMO PRESET:</span>
+                        <button type="button" id="btn-autofill-creds" class="btn-cyber-chip">admin@gateway.sec / admin123</button>
+                    </div>
+
+                    <!-- Error / Feedback Alert Banner -->
+                    <div id="login-alert" class="cyber-alert hidden"></div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Password / Token Recovery Modal -->
+    <div id="reset-modal" class="modal-backdrop hidden">
+        <div class="cyber-modal-card">
+            <div class="hud-bracket top-left"></div>
+            <div class="hud-bracket top-right"></div>
+            <div class="hud-bracket bottom-left"></div>
+            <div class="hud-bracket bottom-right"></div>
+            <div class="reset-header">
+                <h3>EMERGENCY OVERRIDE AUTHORIZATION</h3>
+                <button type="button" id="btn-close-reset-modal" class="btn-modal-close" aria-label="Close modal">&times;</button>
+            </div>
+            <p class="reset-description">Submit verified operator identifier to generate an isolated cryptographic recovery PIN:</p>
+            <div class="cyber-input-group">
+                <div class="input-line-wrapper">
+                    <span class="terminal-prefix">&gt;</span>
+                    <input type="email" id="reset-email" class="cyber-input" placeholder="admin@gateway.sec" value="admin@gateway.sec" />
+                </div>
+                <div class="cyber-glow-bar active-glow"></div>
+            </div>
+            <div class="reset-actions">
+                <button type="button" id="btn-send-reset-pin" class="btn-cyber-laser sm">GENERATE OVERRIDE TOKEN</button>
+                <button type="button" id="btn-cancel-reset" class="btn-cyber-ghost">ABORT</button>
+            </div>
+            <div id="reset-status" class="reset-status hidden"></div>
+        </div>
+    </div>
+
+    <!-- Step 1: Peripheral Interfacing Matrix (Landing Page) -->
+    <div id="landing-page" class="landing-container hidden">
+        <div class="cyber-landing-card">
+            <div class="hud-bracket top-left"></div>
+            <div class="hud-bracket top-right"></div>
+            <div class="hud-bracket bottom-left"></div>
+            <div class="hud-bracket bottom-right"></div>
+
+            <div class="landing-header">
+                <div class="shield-logo-cyber">🛡️</div>
+                <h1>PERIPHERAL INTERFACING MATRIX</h1>
+                <p>Select hardware communications protocol to bind client workstation to Gateway GUI</p>
+            </div>
+
+            <!-- Protocol Selection Matrix -->
             <div id="interface-selection" class="selection-box">
-                <h2>Select Connection Method</h2>
-                <p class="subtitle">Choose how to connect your device to access the dashboard GUI:</p>
+                <div class="section-badge">COMMUNICATIONS BUS</div>
+                <h2>SELECT HOST INTERFACE PROTOCOL</h2>
+                <p class="subtitle">Secure hardware channel connecting client console to Raspberry Pi Security Gateway:</p>
 
                 <div class="interface-grid">
-                    <button class="interface-card" data-type="usb">
+                    <button class="cyber-interface-tile" data-type="usb">
+                        <div class="tile-corner"></div>
                         <div class="icon">🔌</div>
-                        <h3>Wired USB (Type-A / Type-C)</h3>
-                        <p>Connect via USB-A or USB-C Cable</p>
-                        <span class="badge">Wired USB</span>
+                        <h3>Wired USB Gateway</h3>
+                        <p>Type-A / Type-C OTG Direct Channel</p>
+                        <div class="tile-meta">
+                            <span class="badge-cyan">480 Mbps USB 2.0/3.0</span>
+                            <span class="latency">&lt; 1ms Jitter</span>
+                        </div>
                     </button>
 
-                    <button class="interface-card" data-type="wifi">
+                    <button class="cyber-interface-tile" data-type="wifi">
+                        <div class="tile-corner"></div>
                         <div class="icon">📶</div>
-                        <h3>WiFi Network</h3>
-                        <p>Connect using WiFi</p>
-                        <span class="badge">WiFi</span>
+                        <h3>Encrypted WiFi 6</h3>
+                        <p>Isolated Gateway LAN / WPA3-SAE</p>
+                        <div class="tile-meta">
+                            <span class="badge-emerald">WPA3-Enterprise</span>
+                            <span class="latency">~ 4ms Latency</span>
+                        </div>
                     </button>
 
-                    <button class="interface-card" data-type="bluetooth">
+                    <button class="cyber-interface-tile" data-type="bluetooth">
+                        <div class="tile-corner"></div>
                         <div class="icon">📡</div>
-                        <h3>Bluetooth</h3>
-                        <p>Connect via Bluetooth</p>
-                        <span class="badge">Bluetooth</span>
+                        <h3>Bluetooth BLE OBEX</h3>
+                        <p>Encrypted Paired Security Profile</p>
+                        <div class="tile-meta">
+                            <span class="badge-amber">Isolated OBEX</span>
+                            <span class="latency">Low-Power Peer</span>
+                        </div>
                     </button>
                 </div>
             </div>
 
-            <!-- Detecting / Scanning Radar State (Hidden initially) -->
+            <!-- Interfacing Radar Scan State -->
             <div id="detection-radar" class="radar-box hidden">
-                <div class="radar-spinner"></div>
-                <h3 id="radar-status-text">Connecting to Hardware Security Gateway...</h3>
-                <p class="radar-sub">Establishing connection and initializing GUI dashboard session (2-3s)</p>
+                <div class="cyber-radar-pulse">
+                    <div class="pulse-ring ring-1"></div>
+                    <div class="pulse-ring ring-2"></div>
+                    <div class="pulse-core">⚡</div>
+                </div>
+                <h3 id="radar-status-text">NEGOTIATING PERIPHERAL HANDSHAKE...</h3>
+                <p class="radar-sub">Establishing isolated hardware socket with Raspberry Pi security kernel (2-3s)</p>
 
-                <!-- Discovered Device Card (Appears after 2.5 seconds) -->
+                <!-- Discovered Hardware Gateway Pod -->
                 <div id="discovered-device" class="discovered-card hidden">
                     <div class="discovered-icon" id="device-icon">⚡</div>
                     <div class="discovered-info">
-                        <h4 id="device-name">Hardware Security Gateway Device</h4>
-                        <p id="device-details">Status: Connected & Online | Ready for Inspection</p>
+                        <h4 id="device-name">HARDWARE SECURITY GATEWAY APPLIANCE</h4>
+                        <p id="device-details">Channel: Active | Udev Listener: Armed | Policy Engine: Ready</p>
                     </div>
-                    <button id="btn-open-dashboard" class="btn-primary">Access Gateway GUI Dashboard 🚀</button>
+                    <button id="btn-open-dashboard" class="btn-cyber-laser">MOUNT GATEWAY DASHBOARD 🚀</button>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Step 2: Main Dashboard View (Hidden initially until gateway is connected) -->
+    <!-- Step 2: Main Dashboard View -->
     <div id="dashboard-app" class="app-container hidden">
         <!-- Sidebar Navigation -->
         <aside class="sidebar">
             <div class="brand">
                 <span class="shield-icon">🛡️</span>
-                <h2>Gateway Dashboard</h2>
+                <div class="brand-text">
+                    <h2>GATEWAY DEFENSE</h2>
+                    <span class="brand-tag">SECURE APPLIANCE</span>
+                </div>
             </div>
             <nav class="nav-menu">
-                <a href="#overview" class="nav-link active" data-tab="overview">📊 Overview</a>
-                <a href="#active-scan" class="nav-link" data-tab="active-scan">🔍 Active Scan</a>
-                <a href="#results" class="nav-link" data-tab="results">📄 File Results</a>
-                <a href="#quarantine" class="nav-link" data-tab="quarantine">☣️ Quarantine</a>
-                <a href="#audit" class="nav-link" data-tab="audit">📜 Audit History</a>
-                <a href="#settings" class="nav-link" data-tab="settings">⚙️ Settings</a>
+                <a href="#overview" class="nav-link active" data-tab="overview">
+                    <span class="nav-icon">📊</span>
+                    <span class="nav-text">TELEMETRY OVERVIEW</span>
+                </a>
+                <a href="#active-scan" class="nav-link" data-tab="active-scan">
+                    <span class="nav-icon">🔍</span>
+                    <span class="nav-text">ACTIVE SCAN PIPELINE</span>
+                </a>
+                <a href="#results" class="nav-link" data-tab="results">
+                    <span class="nav-icon">📄</span>
+                    <span class="nav-text">INSPECTION RECORDS</span>
+                </a>
+                <a href="#quarantine" class="nav-link" data-tab="quarantine">
+                    <span class="nav-icon">☣️</span>
+                    <span class="nav-text">QUARANTINE VAULT</span>
+                </a>
+                <a href="#audit" class="nav-link" data-tab="audit">
+                    <span class="nav-icon">📜</span>
+                    <span class="nav-text">WAL AUDIT LOGS</span>
+                </a>
+                <a href="#settings" class="nav-link" data-tab="settings">
+                    <span class="nav-icon">⚙️</span>
+                    <span class="nav-text">KERNEL PARAMETERS</span>
+                </a>
             </nav>
+
             <div class="system-status">
-                <span class="status-indicator online"></span>
-                <span>Gateway Device: <strong>ONLINE</strong></span>
+                <span class="status-beacon online"></span>
+                <span>SYSTEM: <strong>ARMED // ONLINE</strong></span>
+            </div>
+
+            <!-- Operator Session Card -->
+            <div class="user-session-card">
+                <div class="user-avatar-circle">🛡️</div>
+                <div class="user-meta">
+                    <span class="user-email-label" id="sidebar-user-email">admin@gateway.sec</span>
+                    <span class="user-role-label">CLEARANCE: L4 OPERATOR</span>
+                </div>
+                <button type="button" id="btn-sidebar-logout" class="btn-icon-logout" title="Lock Console & Sign Out">
+                    <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                        <polyline points="16 17 21 12 16 7"></polyline>
+                        <line x1="21" y1="12" x2="9" y2="12"></line>
+                    </svg>
+                </button>
             </div>
         </aside>
 
@@ -91,99 +358,260 @@
         <main class="content-area">
             <header class="top-bar">
                 <div>
-                    <h1 id="page-title">Gateway Overview</h1>
-                    <p class="text-sub">Hardware-Assisted 9-Stage Malware Inspection Pipeline</p>
+                    <h1 id="page-title">TELEMETRY OVERVIEW</h1>
+                    <p class="text-sub">Hardware-Assisted 9-Stage Malware Inspection Pipeline // Raspberry Pi OS</p>
                 </div>
                 <div class="top-bar-actions">
                     <div class="device-badge" id="device-badge">
-                        <span>⚡ Connected: <strong>Wired USB Gateway</strong></span>
+                        <span>⚡ LINKED: <strong>Wired USB Gateway</strong></span>
                     </div>
-                    <button id="btn-switch-device" class="btn-secondary">🔌 Switch Connection</button>
-                    <button id="btn-run-demo" class="btn-accent">▶️ Run 9-Stage Demo Scan</button>
+                    <button id="btn-theme-toggle" class="btn-cyber-ghost btn-theme-toggle" title="Toggle Light / Dark Mode">
+                        <span class="theme-icon">☀️</span>
+                        <span class="theme-text">LIGHT</span>
+                    </button>
+                    <button id="btn-switch-device" class="btn-cyber-ghost">SWITCH LINK</button>
+                    <button id="btn-run-demo" class="btn-cyber-laser">▶️ EXECUTE 9-STAGE SCAN</button>
+                    <button id="btn-lock-session" class="btn-cyber-ghost btn-lock-terminal" title="Lock interface and return to clearance console">🔒 LOCK CONSOLE</button>
                 </div>
             </header>
 
             <!-- Overview Section -->
             <section id="tab-overview" class="tab-content active">
                 <div class="metrics-grid">
-                    <div class="card metric">
-                        <h3>Scanned Sessions</h3>
+                    <div class="cyber-metric-pod metric-sessions">
+                        <div class="pod-bracket-tl"></div>
+                        <div class="metric-header">
+                            <span class="metric-icon-wrap cyan">📁</span>
+                            <span class="metric-badge cyan">AUDITED</span>
+                        </div>
+                        <h3>MEDIA SESSIONS</h3>
                         <p class="metric-value" id="metric-sessions">0</p>
+                        <span class="metric-sub">Hot-plug storage devices audited</span>
                     </div>
-                    <div class="card metric">
-                        <h3>Files Examined</h3>
+
+                    <div class="cyber-metric-pod metric-files">
+                        <div class="pod-bracket-tl"></div>
+                        <div class="metric-header">
+                            <span class="metric-icon-wrap emerald">🛡️</span>
+                            <span class="metric-badge emerald">VERIFIED SAFE</span>
+                        </div>
+                        <h3>INSPECTED OBJECTS</h3>
                         <p class="metric-value" id="metric-files">0</p>
+                        <span class="metric-sub">Processed via 9-stage heuristics</span>
                     </div>
-                    <div class="card metric warning">
-                        <h3>Quarantined Items</h3>
+
+                    <div class="cyber-metric-pod metric-quarantine">
+                        <div class="pod-bracket-tl"></div>
+                        <div class="metric-header">
+                            <span class="metric-icon-wrap amber">☣️</span>
+                            <span class="metric-badge amber">ISOLATED</span>
+                        </div>
+                        <h3>QUARANTINE VAULT</h3>
                         <p class="metric-value" id="metric-quarantine">0</p>
+                        <span class="metric-sub">Stored safely on isolated SSD</span>
                     </div>
-                    <div class="card metric danger">
-                        <h3>Threats Blocked</h3>
+
+                    <div class="cyber-metric-pod metric-blocked">
+                        <div class="pod-bracket-tl"></div>
+                        <div class="metric-header">
+                            <span class="metric-icon-wrap crimson">🚫</span>
+                            <span class="metric-badge crimson">THREATS KILLED</span>
+                        </div>
+                        <h3>NEUTRALIZED THREATS</h3>
                         <p class="metric-value" id="metric-blocked">0</p>
+                        <span class="metric-sub">Signature & heuristic detections</span>
                     </div>
                 </div>
 
-                <div class="card full-width">
-                    <h2>Live Activity Stream</h2>
-                    <div class="event-log" id="event-log">
-                        <div class="log-entry info">[SYSTEM] Hardware Gateway initialized and monitoring udev hot-plug events...</div>
+                <!-- Two Column Dashboard Grid -->
+                <div class="overview-grid">
+                    <!-- Live Security Terminal Console -->
+                    <div class="cyber-card overview-log-card">
+                        <div class="card-title-bar">
+                            <div class="title-with-beacon">
+                                <span class="pulse-indicator-live">LIVE TELEMETRY</span>
+                                <h2>SECURITY KERNEL AUDIT STREAM</h2>
+                            </div>
+                            <span class="stream-channel">CHANNEL: /dev/kmsg [UDEV-MON]</span>
+                        </div>
+                        <div class="event-log" id="event-log">
+                            <div class="log-entry info">[SYSTEM] Hardware Gateway initialized. Monitoring udev netlink socket...</div>
+                        </div>
+                    </div>
+
+                    <!-- Hardware Appliance Defense Health -->
+                    <div class="cyber-card overview-status-card">
+                        <div class="card-title-bar">
+                            <h2>APPLIANCE DEFENSE MATRIX</h2>
+                            <span class="badge-emerald-sm">SYS-INTEGRITY: 100%</span>
+                        </div>
+                        <p class="text-sub">Physical isolation parameters & hardware runtime health</p>
+                        <div class="health-indicators">
+                            <div class="health-item">
+                                <div class="health-icon">🔒</div>
+                                <div class="health-info">
+                                    <strong>Read-Only Kernel Mount Lock</strong>
+                                    <span>Mount flags: <code>ro,nosuid,nodev,noexec</code></span>
+                                </div>
+                                <span class="badge-status allow">ENFORCED</span>
+                            </div>
+                            <div class="health-item">
+                                <div class="health-icon">⚡</div>
+                                <div class="health-info">
+                                    <strong>OverlayFS RAM tmpfs Sandbox</strong>
+                                    <span>Volatile non-persistent workspace (/mnt/overlay_tmp)</span>
+                                </div>
+                                <span class="badge-status allow">ACTIVE</span>
+                            </div>
+                            <div class="health-item">
+                                <div class="health-icon">🦀</div>
+                                <div class="health-info">
+                                    <strong>Rust Scanner Core Engine</strong>
+                                    <span>Native SHA-256 caching & Magic-byte parser</span>
+                                </div>
+                                <span class="badge-status allow">LOADED</span>
+                            </div>
+                            <div class="health-item">
+                                <div class="health-icon">💾</div>
+                                <div class="health-info">
+                                    <strong>Isolated SSD Quarantine Vault</strong>
+                                    <span>Physically independent storage (/mnt/quarantine)</span>
+                                </div>
+                                <span class="badge-status allow">SECURED</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </section>
 
             <!-- Active Scan Section -->
             <section id="tab-active-scan" class="tab-content">
-                <div class="card full-width">
-                    <h2>Current Scan Progress</h2>
-                    <div class="progress-bar-container">
-                        <div class="progress-bar" id="scan-progress-bar" style="width: 0%;"></div>
+                <div class="cyber-card full-width">
+                    <div class="card-title-bar">
+                        <div class="scan-header-left">
+                            <h2>REAL-TIME 9-STAGE INSPECTION PIPELINE</h2>
+                            <span class="pipeline-channel">INSPECTION WORKSPACE: /mnt/overlay_tmp/session_9041</span>
+                        </div>
+                        <span id="scan-badge" class="scan-state-badge idle">STATUS: IDLE</span>
                     </div>
-                    <p id="scan-status-text">Idle - Awaiting media insertion</p>
+
+                    <div class="progress-bar-container">
+                        <div class="progress-bar" id="scan-progress-bar" style="width: 0%;">
+                            <span class="progress-laser-glow"></span>
+                        </div>
+                    </div>
+                    <p id="scan-status-text">Idle - Awaiting removable media insertion</p>
+
+                    <!-- Interactive 9-Stage Circuit Stepper -->
+                    <div class="pipeline-stepper-title">
+                        <h3>TACTICAL PIPELINE EXECUTION CIRCUIT</h3>
+                        <p class="text-sub">Real-time state tracking across all 9 hardware inspection phases</p>
+                    </div>
+
+                    <div class="pipeline-stepper" id="pipeline-stepper">
+                        <div class="stage-node active" id="stage-node-1" data-stage="1">
+                            <div class="node-circle">01</div>
+                            <div class="node-label">UDEV DETECT</div>
+                        </div>
+                        <div class="stage-connector" id="connector-1"></div>
+
+                        <div class="stage-node" id="stage-node-2" data-stage="2">
+                            <div class="node-circle">02</div>
+                            <div class="node-label">RO MOUNT</div>
+                        </div>
+                        <div class="stage-connector" id="connector-2"></div>
+
+                        <div class="stage-node" id="stage-node-3" data-stage="3">
+                            <div class="node-circle">03</div>
+                            <div class="node-label">QUOTA CHECK</div>
+                        </div>
+                        <div class="stage-connector" id="connector-3"></div>
+
+                        <div class="stage-node" id="stage-node-4" data-stage="4">
+                            <div class="node-circle">04</div>
+                            <div class="node-label">RUST SHA256</div>
+                        </div>
+                        <div class="stage-connector" id="connector-4"></div>
+
+                        <div class="stage-node" id="stage-node-5" data-stage="5">
+                            <div class="node-circle">05</div>
+                            <div class="node-label">MAGIC MIME</div>
+                        </div>
+                        <div class="stage-connector" id="connector-5"></div>
+
+                        <div class="stage-node" id="stage-node-6" data-stage="6">
+                            <div class="node-circle">06</div>
+                            <div class="node-label">CLAMAV SCAN</div>
+                        </div>
+                        <div class="stage-connector" id="connector-6"></div>
+
+                        <div class="stage-node" id="stage-node-7" data-stage="7">
+                            <div class="node-circle">07</div>
+                            <div class="node-label">YARA RULES</div>
+                        </div>
+                        <div class="stage-connector" id="connector-7"></div>
+
+                        <div class="stage-node" id="stage-node-8" data-stage="8">
+                            <div class="node-circle">08</div>
+                            <div class="node-label">POLICY TTS</div>
+                        </div>
+                        <div class="stage-connector" id="connector-8"></div>
+
+                        <div class="stage-node" id="stage-node-9" data-stage="9">
+                            <div class="node-circle">09</div>
+                            <div class="node-label">WAL AUDIT</div>
+                        </div>
+                    </div>
                 </div>
             </section>
 
             <!-- File Results Section -->
             <section id="tab-results" class="tab-content">
-                <div class="card full-width">
-                    <h2>File Inspection Records</h2>
+                <div class="cyber-card full-width">
+                    <div class="card-title-bar">
+                        <h2>FILE INSPECTION & VERIFICATION RECORDS</h2>
+                        <span class="badge-cyan">PIPELINE AUDIT DISK: LIVE</span>
+                    </div>
                     <table class="data-table">
                         <thead>
                             <tr>
-                                <th>File Path</th>
-                                <th>Size</th>
-                                <th>SHA-256 Hash</th>
-                                <th>Verified Type</th>
-                                <th>Threat Score</th>
-                                <th>Policy Action</th>
+                                <th>FILE OBJECT PATH</th>
+                                <th>SIZE</th>
+                                <th>SHA-256 HASH IDENTIFIER</th>
+                                <th>VALIDATED MIME TYPE</th>
+                                <th>TTS SCORE</th>
+                                <th>POLICY DECISION</th>
                             </tr>
                         </thead>
                         <tbody id="results-table-body">
                             <tr>
-                                <td colspan="6" class="text-center">No scan results available yet. Insert media or click "Run 9-Stage Demo Scan".</td>
+                                <td colspan="6" class="text-center">No scan records available. Insert removable media or trigger "Execute 9-Stage Scan".</td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
             </section>
 
-            <!-- Quarantine Section -->
+            <!-- Quarantine Vault Section -->
             <section id="tab-quarantine" class="tab-content">
-                <div class="card full-width">
-                    <h2>☣️ Isolated Quarantine Storage</h2>
-                    <p class="text-sub">Files classified with high threat scores are safely isolated in `/mnt/quarantine` (Separate SSD storage).</p>
+                <div class="cyber-card full-width">
+                    <div class="card-title-bar">
+                        <h2>☣️ ISOLATED QUARANTINE VAULT</h2>
+                        <span class="badge-amber">STORAGE: /mnt/quarantine [ISOLATED SSD]</span>
+                    </div>
+                    <p class="text-sub">Malicious artifacts and policy violations are physically isolated in a sandbox repository.</p>
                     <table class="data-table">
                         <thead>
                             <tr>
-                                <th>File Name</th>
-                                <th>Detection Reason</th>
-                                <th>Threat Score</th>
-                                <th>Isolated Path</th>
+                                <th>MALICIOUS ARTIFACT</th>
+                                <th>DETECTION SIGNATURE / REASON</th>
+                                <th>TTS THREAT SCORE</th>
+                                <th>ISOLATED ENCLAVE PATH</th>
                             </tr>
                         </thead>
                         <tbody id="quarantine-table-body">
                             <tr>
-                                <td colspan="4" class="text-center">No quarantined items currently stored.</td>
+                                <td colspan="4" class="text-center">Quarantine vault is currently clean. No active threats isolated.</td>
                             </tr>
                         </tbody>
                     </table>
@@ -192,12 +620,15 @@
 
             <!-- Audit History Section -->
             <section id="tab-audit" class="tab-content">
-                <div class="card full-width">
-                    <h2>Audit Log History</h2>
+                <div class="cyber-card full-width">
+                    <div class="card-title-bar">
+                        <h2>SQLITE WAL AUDIT LOG HISTORY</h2>
+                        <span class="badge-cyan">INTEGRITY: CRYPTO-SEALED</span>
+                    </div>
                     <div class="audit-list" id="audit-list">
                         <div class="audit-item">
                             <span class="badge info">INIT</span>
-                            <span>[Gateway Startup] SQLite WAL Audit Log Initialized</span>
+                            <span>[SYSTEM STARTUP] SQLite WAL Audit Ledger Mounted at /var/log/gateway_audit.db</span>
                         </div>
                     </div>
                 </div>
@@ -205,32 +636,35 @@
 
             <!-- Settings Section -->
             <section id="tab-settings" class="tab-content">
-                <div class="card full-width">
-                    <h2>⚙️ Hardware Gateway System Specifications</h2>
+                <div class="cyber-card full-width">
+                    <div class="card-title-bar">
+                        <h2>⚙️ HARDWARE SECURITY GATEWAY ARCHITECTURE</h2>
+                        <span class="badge-emerald-sm">STATUS: HARDENED</span>
+                    </div>
                     <div class="settings-grid">
                         <div class="setting-item">
-                            <label>Hardware Platform</label>
-                            <span class="status-active">Embedded Security Appliance</span>
+                            <label>HARDWARE PLATFORM</label>
+                            <span class="status-active">Raspberry Pi 5 (BCM2712 / Cortex-A76)</span>
                         </div>
                         <div class="setting-item">
-                            <label>Media Mount Protection</label>
-                            <span class="status-active">Read-Only (ro,noexec,nosuid,nodev)</span>
+                            <label>MEDIA MOUNT PROTECTION</label>
+                            <span class="status-active">Read-Only (ro,nosuid,nodev,noexec)</span>
                         </div>
                         <div class="setting-item">
-                            <label>Inspection Workspace</label>
+                            <label>ISOLATION WORKSPACE</label>
                             <span class="status-active">OverlayFS + RAM tmpfs (/mnt/overlay_tmp)</span>
                         </div>
                         <div class="setting-item">
-                            <label>Hashing & Magic Inspection</label>
+                            <label>HASHING & STRUCTURE ENGINE</label>
                             <span class="status-active">Native Rust Core + SHA-256</span>
                         </div>
                         <div class="setting-item">
-                            <label>Signature & Rule Engines</label>
-                            <span class="status-active">ClamAV Daemon + YARA Rules</span>
+                            <label>HEURISTIC SIGNATURES</label>
+                            <span class="status-active">ClamAV Daemon + Custom YARA Rule Base</span>
                         </div>
                         <div class="setting-item">
-                            <label>Audit Database</label>
-                            <span class="status-active">SQLite (WAL Mode)</span>
+                            <label>AUDIT PERSISTENCE</label>
+                            <span class="status-active">SQLite (WAL Mode) with fsync()</span>
                         </div>
                     </div>
                 </div>
