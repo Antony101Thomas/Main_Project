@@ -759,8 +759,9 @@ body.cyber-theme {
 
 .interface-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    grid-template-columns: repeat(2, minmax(240px, 320px));
     gap: 22px;
+    justify-content: center;
 }
 
 .cyber-interface-tile {
@@ -974,6 +975,10 @@ body.cyber-theme {
     display: flex;
     flex-direction: column;
     box-shadow: 6px 0 30px rgba(0, 0, 0, 0.6);
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    overflow-y: auto;
 }
 
 .brand {
@@ -1161,25 +1166,6 @@ body.cyber-theme {
     gap: 12px;
 }
 
-.device-badge {
-    background: rgba(0, 240, 255, 0.08);
-    border: 1px solid rgba(0, 240, 255, 0.35);
-    padding: 8px 16px;
-    border-radius: 6px;
-    font-family: var(--font-mono);
-    font-size: 0.82rem;
-    color: var(--cyan-neon);
-}
-
-.btn-lock-terminal {
-    color: var(--amber-hazard) !important;
-    border-color: rgba(255, 183, 3, 0.35) !important;
-}
-
-.btn-lock-terminal:hover {
-    background: rgba(255, 183, 3, 0.12) !important;
-    border-color: var(--amber-hazard) !important;
-}
 
 /* ==========================================================================
    METRIC PODS (HOLOGRAPHIC CYBER HUD)
@@ -1828,39 +1814,8 @@ body.cyber-theme {
 }
 
 /* ==========================================================================
-   THEME TOGGLE BUTTONS (FLOATING & HEADER)
+   THEME TOGGLE BUTTON (HEADER)
    ========================================================================== */
-
-.floating-theme-toggle {
-    position: fixed;
-    top: 22px;
-    right: 26px;
-    z-index: 3000;
-    background: var(--bg-surface);
-    border: var(--panel-border-bright);
-    color: var(--cyan-neon);
-    font-family: var(--font-tactical);
-    font-size: 0.8rem;
-    font-weight: 700;
-    letter-spacing: 0.08em;
-    padding: 8px 16px;
-    border-radius: 999px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    box-shadow: 0 4px 18px var(--cyan-glow);
-    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-    backdrop-filter: blur(14px);
-    -webkit-backdrop-filter: blur(14px);
-}
-
-.floating-theme-toggle:hover {
-    transform: translateY(-2px);
-    background: var(--cyan-subtle);
-    box-shadow: 0 6px 24px var(--cyan-glow);
-    border-color: var(--cyan-neon);
-}
 
 .btn-theme-toggle {
     display: inline-flex;
@@ -2002,12 +1957,6 @@ body.light-theme .nav-link.active {
     background: rgba(2, 132, 199, 0.12) !important;
     color: #0284c7 !important;
     border-left-color: #0284c7 !important;
-}
-
-body.light-theme .device-badge {
-    background: #ffffff !important;
-    border-color: rgba(2, 132, 199, 0.3) !important;
-    color: #0284c7 !important;
 }
 
 body.light-theme .data-table th {

@@ -38,6 +38,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Session Management Elements
     const btnLockSession = document.getElementById("btn-lock-session");
+    const btnAdminLogout = document.getElementById("btn-admin-logout");
     const btnSidebarLogout = document.getElementById("btn-sidebar-logout");
     const sidebarUserEmail = document.getElementById("sidebar-user-email");
 
@@ -279,6 +280,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     if (btnLockSession) btnLockSession.addEventListener("click", lockGatewaySession);
+    if (btnAdminLogout) btnAdminLogout.addEventListener("click", lockGatewaySession);
     if (btnSidebarLogout) btnSidebarLogout.addEventListener("click", lockGatewaySession);
 
     // =========================================================================
@@ -297,12 +299,6 @@ document.addEventListener("DOMContentLoaded", () => {
             name: "Encrypted WiFi-6 Network Channel",
             details: "Protocol: 802.11ax / WPA3-SAE Hardware Handshake | Band: 5 GHz | Latency: 4ms",
             badge: "📶 ENCRYPTED WIFI-6 [WPA3-SAE]"
-        },
-        bluetooth: {
-            icon: "📡",
-            name: "Bluetooth BLE Tactical OBEX Profile",
-            details: "Protocol: BLE 5.4 Isolated OBEX Channel | Range: Near-Field | Power: Ultra-Low",
-            badge: "📡 BLUETOOTH BLE [OBEX-SEC]"
         }
     };
 
@@ -322,8 +318,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         const labels = {
             usb: "NEGOTIATING WIRED USB BUS PROTOCOL (OTG DIRECT)...",
-            wifi: "PERFORMING WPA3-SAE CRYPTOGRAPHIC HANDSHAKE...",
-            bluetooth: "ESTABLISHING BLE ISOLATED OBEX SECURE PAIRING..."
+            wifi: "PERFORMING WPA3-SAE CRYPTOGRAPHIC HANDSHAKE..."
         };
 
         radarStatusText.textContent = labels[type] || "NEGOTIATING PERIPHERAL PROTOCOL...";
@@ -347,7 +342,9 @@ document.addEventListener("DOMContentLoaded", () => {
         dashboardApp.classList.remove("hidden");
 
         if (activeConnectionData) {
-            deviceBadge.innerHTML = `<span>${activeConnectionData.badge}</span>`;
+            if (deviceBadge) {
+                deviceBadge.innerHTML = `<span>${activeConnectionData.badge}</span>`;
+            }
             appendLog("success", `[SOCKET LINK] Established hardware communications channel via ${activeConnectionData.name}`);
         }
     });
@@ -385,10 +382,12 @@ document.addEventListener("DOMContentLoaded", () => {
     // =========================================================================
 
     let isDemoRunning = false;
-    btnRunDemo.addEventListener("click", () => {
-        if (isDemoRunning) return;
-        runFullDemoScan();
-    });
+    if (btnRunDemo) {
+        btnRunDemo.addEventListener("click", () => {
+            if (isDemoRunning) return;
+            runFullDemoScan();
+        });
+    }
 
     function formatStageNum(num) {
         return num < 10 ? `0${num}` : `${num}`;
@@ -426,8 +425,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function runFullDemoScan() {
         isDemoRunning = true;
-        btnRunDemo.disabled = true;
-        btnRunDemo.textContent = "⏳ INSPECTION IN PROGRESS...";
+        if (btnRunDemo) {
+            btnRunDemo.disabled = true;
+            btnRunDemo.textContent = "⏳ INSPECTION IN PROGRESS...";
+        }
 
         const progressBar = document.getElementById("scan-progress-bar");
         const statusText = document.getElementById("scan-status-text");
@@ -523,8 +524,10 @@ document.addEventListener("DOMContentLoaded", () => {
                 setTimeout(() => {
                     updateStageStepper(9);
                     isDemoRunning = false;
-                    btnRunDemo.disabled = false;
-                    btnRunDemo.textContent = "▶️ EXECUTE 9-STAGE SCAN";
+                    if (btnRunDemo) {
+                        btnRunDemo.disabled = false;
+                        btnRunDemo.textContent = "▶️ EXECUTE 9-STAGE SCAN";
+                    }
                     statusText.textContent = "✅ Stage 09 Complete - Ledger cryptographically sealed in SQLite WAL database";
                     if (scanBadge) {
                         scanBadge.textContent = "AUDIT COMPLETE // ARMED";
@@ -544,6 +547,9 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         }, 1100);
     }
+
+    // Expose demo scan runner globally for testing/simulation
+    window.runFullDemoScan = runFullDemoScan;
 
     function addQuarantineRow(file) {
         const quarantineTable = document.getElementById("quarantine-table-body");

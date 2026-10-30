@@ -15,11 +15,6 @@
     <div class="ambient-glow cyan-orb"></div>
     <div class="ambient-glow emerald-orb"></div>
 
-    <!-- Floating Global Theme Toggle (Accessible on all screens) -->
-    <button id="btn-floating-theme-toggle" class="floating-theme-toggle" title="Toggle Light / Dark Mode" aria-label="Toggle Theme">
-        <span class="theme-toggle-icon">☀️</span>
-        <span class="theme-toggle-label">LIGHT MODE</span>
-    </button>
 
     <!-- Step 0: High-Tech Cyber Security Access Terminal -->
     <div id="login-page" class="login-page-wrapper">
@@ -123,7 +118,6 @@
                                 id="login-email" 
                                 class="cyber-input" 
                                 placeholder="operator@gateway.sec" 
-                                value="admin@gateway.sec"
                                 required 
                                 spellcheck="false"
                             />
@@ -147,7 +141,6 @@
                                 id="login-password" 
                                 class="cyber-input" 
                                 placeholder="••••••••••••" 
-                                value="admin123"
                                 required 
                             />
                             <button type="button" id="btn-toggle-password" class="cyber-eye-btn" title="Toggle token visibility" aria-label="Toggle token visibility">
@@ -167,18 +160,6 @@
                             <span class="btn-spinner hidden"></span>
                             <span class="laser-shine"></span>
                         </button>
-                    </div>
-
-                    <!-- Forgot Password / Key Recovery Link -->
-                    <div class="cyber-links-bar">
-                        <a href="#" id="link-forgot-password" class="cyber-link">Request Security Override Token</a>
-                    </div>
-
-                    <!-- Demo Quick Fill Credential Pod -->
-                    <div class="demo-credential-pod">
-                        <span class="demo-icon">⚡</span>
-                        <span class="demo-text">TACTICAL DEMO PRESET:</span>
-                        <button type="button" id="btn-autofill-creds" class="btn-cyber-chip">admin@gateway.sec / admin123</button>
                     </div>
 
                     <!-- Error / Feedback Alert Banner -->
@@ -258,16 +239,6 @@
                         </div>
                     </button>
 
-                    <button class="cyber-interface-tile" data-type="bluetooth">
-                        <div class="tile-corner"></div>
-                        <div class="icon">📡</div>
-                        <h3>Bluetooth BLE OBEX</h3>
-                        <p>Encrypted Paired Security Profile</p>
-                        <div class="tile-meta">
-                            <span class="badge-amber">Isolated OBEX</span>
-                            <span class="latency">Low-Power Peer</span>
-                        </div>
-                    </button>
                 </div>
             </div>
 
@@ -326,7 +297,7 @@
                     <span class="nav-icon">📜</span>
                     <span class="nav-text">WAL AUDIT LOGS</span>
                 </a>
-                <a href="#settings" class="nav-link" data-tab="settings">
+                <a href="#settings" class="nav-link" data-tab="settings" style="display:none;">
                     <span class="nav-icon">⚙️</span>
                     <span class="nav-text">KERNEL PARAMETERS</span>
                 </a>
@@ -359,19 +330,21 @@
             <header class="top-bar">
                 <div>
                     <h1 id="page-title">TELEMETRY OVERVIEW</h1>
-                    <p class="text-sub">Hardware-Assisted 9-Stage Malware Inspection Pipeline // Raspberry Pi OS</p>
                 </div>
                 <div class="top-bar-actions">
-                    <div class="device-badge" id="device-badge">
-                        <span>⚡ LINKED: <strong>Wired USB Gateway</strong></span>
-                    </div>
                     <button id="btn-theme-toggle" class="btn-cyber-ghost btn-theme-toggle" title="Toggle Light / Dark Mode">
                         <span class="theme-icon">☀️</span>
                         <span class="theme-text">LIGHT</span>
                     </button>
                     <button id="btn-switch-device" class="btn-cyber-ghost">SWITCH LINK</button>
-                    <button id="btn-run-demo" class="btn-cyber-laser">▶️ EXECUTE 9-STAGE SCAN</button>
-                    <button id="btn-lock-session" class="btn-cyber-ghost btn-lock-terminal" title="Lock interface and return to clearance console">🔒 LOCK CONSOLE</button>
+                    <button id="btn-admin-logout" class="btn-cyber-ghost btn-admin-logout" title="Lock Console & Sign Out">
+                        <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                            <polyline points="16 17 21 12 16 7"></polyline>
+                            <line x1="21" y1="12" x2="9" y2="12"></line>
+                        </svg>
+                        <span>ADMIN LOGOUT</span>
+                    </button>
                 </div>
             </header>
 
@@ -634,8 +607,8 @@
                 </div>
             </section>
 
-            <!-- Settings Section -->
-            <section id="tab-settings" class="tab-content">
+            <!-- Settings Section (hidden) -->
+            <section id="tab-settings" class="tab-content" style="display:none;">
                 <div class="cyber-card full-width">
                     <div class="card-title-bar">
                         <h2>⚙️ HARDWARE SECURITY GATEWAY ARCHITECTURE</h2>
